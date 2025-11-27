@@ -74,22 +74,41 @@
   </footer>
 
   <script src="script.js"></script>
+
   <script>
+
+    // تشخیص مدیر
+    const isAdmin = localStorage.getItem("histuri_admin") === "1";
+
+    // حذف مقاله
+    function deleteArticle(id){
+      if(!confirm("آیا مطمئن هستید؟")) return;
+      const raw = localStorage.getItem("histuri_articles");
+      const arr = raw ? JSON.parse(raw) : [];
+      arr.splice(id, 1);
+      localStorage.setItem("histuri_articles", JSON.stringify(arr));
+      location.reload();
+    }
+
     // بارگذاری و نمایش مقالات
     (function(){
       const grid = document.getElementById('articles');
+
       function render(){
         grid.innerHTML = '';
         const raw = localStorage.getItem('histuri_articles');
         const arr = raw ? JSON.parse(raw) : [];
+
         if(!arr.length){
           grid.innerHTML = '<div class="card">تاکنون مقاله‌ای منتشر نشده. <a href="add.html" class="btn ghost small">ورود مدیر</a></div>';
           return;
         }
+
         arr.slice().reverse().forEach((a, i)=>{
           const idx = arr.length - 1 - i;
           const el = document.createElement('article');
           el.className = 'article-card';
+
           el.innerHTML = `
             ${a.thumbnail ? `<img class="article-thumb" src="${a.thumbnail}" alt="${escapeHtml(a.title)}">` : ''}
             <div class="article-body">
@@ -97,16 +116,27 @@
               <div class="muted small">دسته: ${escapeHtml(a.category || 'عمومی')}</div>
               <p class="excerpt">${a.excerpt || stripHtml(a.content||'').slice(0,160) + '...'}</p>
             </div>
+
             <div class="article-actions">
               <a class="btn ghost small" href="story.html?id=${idx}">مشاهده</a>
+
+              ${isAdmin ? `
+                <a class="btn small" style="background:#4c6ef5;color:#fff" href="edit.html?id=${idx}">ویرایش</a>
+                <button class="btn small" style="background:#ff6b6b;color:#fff" onclick="deleteArticle(${idx})">حذف</button>
+              ` : ''}
+
             </div>
           `;
+
           grid.appendChild(el);
         });
       }
+
       render();
       initDrawer();
     })();
+
   </script>
+
 </body>
 </html>
