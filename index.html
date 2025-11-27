@@ -1,147 +1,152 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هیستوری | Histuri</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Histuri.com</title>
+
     <style>
         body {
             margin: 0;
-            font-family: sans-serif;
-            background-color: #f5f5f5;
+            font-family: "Vazir", sans-serif;
+            direction: rtl;
+            background: #ffffff;
         }
 
         /* هدر */
-        .hero {
-            background: linear-gradient(to bottom, #003a8c, #005fcc);
+        header {
+            width: 100%;
+            background: #0033aa;
             color: white;
-            text-align: center;
-            padding: 90px 20px;
-        }
-
-        .hero h1 {
-            margin: 0;
-            font-size: 45px;
-            font-weight: bold;
-        }
-
-        .hero p {
-            margin-top: 12px;
-            font-size: 18px;
-            opacity: 0.9;
-        }
-
-        /* دکمه‌ها */
-        .buttons {
-            margin-top: 35px;
+            padding: 15px;
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 0 10px #0003;
         }
 
-        .btn {
-            background-color: #007bff;
-            color: white;
-            padding: 12px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 16px;
+        .logo {
+            font-size: 22px;
             font-weight: bold;
-            transition: 0.2s;
         }
 
-        .btn:hover {
-            background-color: #005fcc;
+        /* دکمه سه‌خط */
+        .menu-btn {
+            font-size: 30px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* منوی کناری */
+        #sideMenu {
+            position: fixed;
+            top: 0;
+            right: -260px;
+            width: 260px;
+            height: 100%;
+            background: #0033aa;
+            color: white;
+            padding: 20px;
+            transition: 0.3s;
+            box-shadow: -5px 0 15px #0005;
+            z-index: 1000;
+        }
+
+        #sideMenu a {
+            display: block;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #0044cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        #sideMenu a:hover {
+            background: #0055dd;
+        }
+
+        .close-btn {
+            font-size: 28px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        /* محتوای صفحه */
+        .content {
+            padding: 20px;
+        }
+
+        .category-box {
+            padding: 20px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 5px #ddd;
+        }
+
+        .category-box a {
+            padding: 10px 20px;
+            background: #0033aa;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .category-box a:hover {
+            background: #0055dd;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="hero">
-        <h1>Histuri</h1>
-        <p>ذخیره و اشتراک‌گذاری داستان‌های شما، حتی اگر فراموش شده باشند.</p>
+    <!-- هدر -->
+    <header>
+        <div class="logo">Histuri.com</div>
+        <div class="menu-btn" onclick="openMenu()">☰</div>
+    </header>
 
-        <div class="buttons">
-            <a href="stories.html" class="btn">داستان‌ها</a>
-            <a href="add.html" class="btn">افزودن داستان</a>
-            <a href="about.html" class="btn">درباره ما</a>
+    <!-- منوی کناری -->
+    <div id="sideMenu">
+        <div class="close-btn" onclick="closeMenu()">✖</div>
+
+        <a href="index.html">صفحه اصلی</a>
+        <a href="politics.html">داستان‌های سیاسی</a>
+        <a href="history.html">داستان‌های تاریخی</a>
+        <a href="free-articles.html">مقالات آزاد</a>
+        <a href="about.html">درباره ما</a>
+        <a href="contact.html">تماس با ما</a>
+    </div>
+
+    <!-- محتوای اصلی -->
+    <div class="content">
+        <h2>به Histuri خوش آمدید</h2>
+
+        <div class="category-box">
+            <h3>داستان‌های سیاسی</h3>
+            <a href="politics.html">مشاهده</a>
+        </div>
+
+        <div class="category-box">
+            <h3>داستان‌های تاریخی</h3>
+            <a href="history.html">مشاهده</a>
+        </div>
+
+        <div class="category-box">
+            <h3>مقالات آزاد</h3>
+            <a href="free-articles.html">مشاهده</a>
         </div>
     </div>
 
+    <script>
+        function openMenu() {
+            document.getElementById("sideMenu").style.right = "0";
+        }
+        function closeMenu() {
+            document.getElementById("sideMenu").style.right = "-260px";
+        }
+    </script>
+
 </body>
-    <!-- منوی سه خط -->
-<style>
-    .topbar {
-        background: #003a8c;
-        color: white;
-        padding: 15px;
-        font-size: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .menu-icon {
-        cursor: pointer;
-        font-size: 28px;
-        user-select: none;
-    }
-
-    /* منوی کشویی */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        right: -260px;
-        width: 260px;
-        height: 100%;
-        background: #003a8c;
-        color: white;
-        padding: 20px;
-        transition: 0.3s;
-        z-index: 1000;
-    }
-
-    .sidebar.open {
-        right: 0;
-    }
-
-    .sidebar a {
-        display: block;
-        padding: 12px 0;
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .sidebar a:hover {
-        color: #ffea00;
-    }
-</style>
-
-<div class="topbar">
-    <div style="font-size: 23px; font-weight: bold;">
-        Histuri.com
-    </div>
-
-    <div class="menu-icon" onclick="toggleMenu()">☰</div>
-</div>
-
-<div id="sideMenu" class="sidebar">
-    <a href="index.html">صفحه اصلی</a>
-    <a href="stories.html">داستان‌ها</a>
-    <a href="add.html">افزودن داستان</a>
-    <a href="about.html">درباره ما</a>
-</div>
-
-<script>
-    function toggleMenu() {
-        document.getElementById("sideMenu").classList.toggle("open");
-    }
-</script>
-
 </html>
-
