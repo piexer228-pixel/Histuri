@@ -2,45 +2,139 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>افزودن مقاله</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>افزودن داستان | Histuri</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+        }
+
+        .header {
+            background: #003a8c;
+            color: white;
+            padding: 18px 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .container {
+            background: white;
+            width: 90%;
+            max-width: 800px;
+            margin: 25px auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 12px 0 6px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #aaa;
+            font-size: 16px;
+        }
+
+        /* ادیتور */
+        #editor {
+            width: 100%;
+            min-height: 220px;
+            border: 1px solid #aaa;
+            border-radius: 8px;
+            padding: 10px;
+            background: #ffffff;
+        }
+
+        /* دکمه‌های ابزار ادیتور */
+        .toolbar button {
+            padding: 7px 12px;
+            margin: 4px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .toolbar button:hover {
+            background: #005fcc;
+        }
+
+        .submit-btn {
+            margin-top: 20px;
+            background: #28a745;
+            padding: 12px 20px;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+    </style>
+
+    <script>
+        function command(cmd, value = null) {
+            document.execCommand(cmd, false, value);
+        }
+    </script>
+
 </head>
+
 <body>
 
-<header class="header">
-    <div class="logo">Histuri.com</div>
-    <div class="menu-btn" onclick="toggleMenu()">☰</div>
-</header>
+    <div class="header">افزودن داستان جدید</div>
 
-<nav id="menu" class="side-menu">
-    <a href="index.html">صفحه اصلی</a>
-</nav>
+    <div class="container">
 
-<h2 class="page-title">افزودن مقاله جدید</h2>
+        <label>نوع بخش</label>
+        <select>
+            <option>داستان‌های تاریخی</option>
+            <option>داستان‌های سیاسی</option>
+            <option>مقالات آزاد</option>
+            <option>زندگی‌نامه‌ها</option>
+            <option>اسطوره‌ها</option>
+            <option>بخش جدید…</option>
+        </select>
 
-<div class="add-box">
-    <input id="title" type="text" placeholder="عنوان مقاله">
+        <label>عنوان داستان</label>
+        <input type="text" placeholder="مثلاً: ماجرای ساخت اهرام مصر">
 
-    <select id="category">
-        <option value="history">داستان تاریخی</option>
-        <option value="politics">داستان سیاسی</option>
-        <option value="iran">ایران باستان</option>
-        <option value="world">جهان باستان</option>
-    </select>
+        <label>لینک عکس کوچک</label>
+        <input type="text" placeholder="لینک عکس را قرار دهید">
 
-    <textarea id="content" placeholder="متن مقاله..."></textarea>
+        <label>متن داستان</label>
 
-    <div class="editor-buttons">
-        <button onclick="makeBold()">B</button>
-        <button onclick="makeItalic()">I</button>
-        <button onclick="makeBig()">A+</button>
+        <!-- ابزار ادیتور -->
+        <div class="toolbar">
+            <button onclick="command('bold')">B</button>
+            <button onclick="command('italic')">I</button>
+            <button onclick="command('underline')">U</button>
+            <button onclick="command('insertOrderedList')">1.</button>
+            <button onclick="command('insertUnorderedList')">•</button>
+            <button onclick="command('justifyRight')">راست</button>
+            <button onclick="command('justifyCenter')">وسط</button>
+            <button onclick="command('justifyLeft')">چپ</button>
+            <button onclick="command('foreColor', prompt('کد رنگ را وارد کنید:'))">🎨 رنگ</button>
+            <button onclick="command('fontSize', prompt('اندازه فونت (۱ تا ۷):'))">🔠 اندازه</button>
+        </div>
+
+        <!-- ادیتور متن -->
+        <div id="editor" contenteditable="true">
+            متن داستان را اینجا بنویسید…
+        </div>
+
+        <button class="submit-btn">ثبت داستان</button>
     </div>
 
-    <input type="file" id="image">
-
-    <button onclick="saveStory()">ذخیره مقاله</button>
-</div>
-
-<script src="script.js"></script>
 </body>
 </html>
