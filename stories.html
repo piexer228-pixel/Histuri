@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,191 +9,134 @@
     <style>
         body {
             margin: 0;
+            background: #f4f4f4;
             font-family: sans-serif;
-            background-color: #fafafa;
         }
 
         /* هدر */
-        .header {
-            background-color: #003a8c;
+        header {
+            background: #005bbb;
             color: white;
-            padding: 18px 20px;
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        /* عنوان بخش */
-        .section-title {
-            margin: 28px 20px 12px;
-            font-size: 22px;
-            font-weight: bold;
-            color: #003a8c;
-        }
-
-        /* کارت داستان */
-        .story-card {
-            background: white;
-            margin: 10px 20px;
-            padding: 12px;
-            border-radius: 10px;
+            padding: 18px 25px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
-        .story-card img {
-            width: 70px;
-            height: 70px;
-            border-radius: 6px;
-            margin-left: 12px;
-            object-fit: cover;
-        }
-
-        .story-info h3 {
-            margin: 0;
-            font-size: 17px;
+        .site-title {
+            font-size: 23px;
             font-weight: bold;
         }
 
-        .story-info a {
-            display: inline-block;
-            margin-top: 5px;
+        .menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* منو */
+        .sidebar {
+            width: 260px;
+            height: 100%;
+            background: white;
+            position: fixed;
+            top: 0;
+            right: -270px;
+            transition: 0.4s;
+            padding: 20px;
+            box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 12px;
+            color: #005bbb;
+            font-size: 18px;
             text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .close-btn {
+            font-size: 26px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        /* محتوا */
+        .container {
+            background: white;
+            width: 90%;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: #005bbb;
+        }
+
+        .story-box {
+            background: #e9f2ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            cursor: pointer;
+            border: 1px solid #c7dcff;
+            transition: 0.2s;
+        }
+
+        .story-box:hover {
+            background: #d7e9ff;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="header">بخش‌های مختلف Histuri</div>
+    <!-- هدر -->
+    <header>
+        <div class="site-title">Histuri.com</div>
+        <div class="menu-icon" onclick="openMenu()">☰</div>
+    </header>
 
-    <!-- 📘 بخش تاریخی -->
-    <div class="section-title">📘 داستان‌های تاریخی</div>
+    <!-- منوی سه خط -->
+    <div class="sidebar" id="sideMenu">
+        <div class="close-btn" onclick="closeMenu()">✖</div>
 
-    <div class="story-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Kheops-Pyramid.jpg">
-        <div class="story-info">
-            <h3>ساخت اهرام مصر</h3>
-            <a href="story.html">مشاهده</a>
-        </div>
+        <a href="index.html">صفحه اصلی</a>
+        <a href="stories.html">داستان‌ها</a>
+        <a href="add.html">افزودن مطلب</a>
+        <a href="about.html">درباره ما</a>
     </div>
 
-    <!-- 📕 بخش سیاسی -->
-    <div class="section-title">📕 داستان‌های سیاسی</div>
+    <!-- محتوای اصلی صفحه داستان‌ها -->
+    <div class="container">
+        <h2>داستان‌ها</h2>
 
-    <div class="story-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Mahatma-Gandhi%2C_studio%2C_1931.jpg">
-        <div class="story-info">
-            <h3>زندگی گاندی</h3>
-            <a href="story.html">مشاهده</a>
+        <p>در این بخش می‌توانید داستان‌ها و مطالب منتشرشده را مشاهده کنید.</p>
+
+        <!-- لیست نمونه (بعداً پویا می‌کنیم اگر خواستی) -->
+        <div class="story-box" onclick="location.href='story.html'">
+            داستان شماره ۱ — (مثال)
         </div>
+
+        <div class="story-box" onclick="location.href='story.html'">
+            داستان شماره ۲ — (مثال)
+        </div>
+
     </div>
 
-    <!-- 📰 مقالات آزاد -->
-    <div class="section-title">📰 مقالات آزاد</div>
+    <script>
+        function openMenu() {
+            document.getElementById("sideMenu").style.right = "0";
+        }
 
-    <div class="story-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Typewriter.jpg">
-        <div class="story-info">
-            <h3>چرا تاریخ تکرار می‌شود؟</h3>
-            <a href="story.html">مشاهده</a>
-        </div>
-    </div>
-
-    <!-- 👤 زندگی‌نامه‌ها -->
-    <div class="section-title">👤 زندگی‌نامه‌ها</div>
-
-    <div class="story-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Nikola_Tesla%2C_with_his_equipment_Wellcome_M0014782.jpg">
-        <div class="story-info">
-            <h3>نیکولا تسلا؛ نابغه‌ای بی‌زمان</h3>
-            <a href="story.html">مشاهده</a>
-        </div>
-    </div>
-
-    <!-- 🏺 اسطوره‌ها -->
-    <div class="section-title">🏺 اسطوره‌ها</div>
-
-    <div class="story-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Perseus_and_Andromeda_%28Rubens%29.jpg">
-        <div class="story-info">
-            <h3>اسطوره‌های یونان</h3>
-            <a href="story.html">مشاهده</a>
-        </div>
-    </div>
+        function closeMenu() {
+            document.getElementById("sideMenu").style.right = "-270px";
+        }
+    </script>
 
 </body>
-    <!-- منوی سه خط -->
-<style>
-    .topbar {
-        background: #003a8c;
-        color: white;
-        padding: 15px;
-        font-size: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .menu-icon {
-        cursor: pointer;
-        font-size: 28px;
-        user-select: none;
-    }
-
-    /* منوی کشویی */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        right: -260px;
-        width: 260px;
-        height: 100%;
-        background: #003a8c;
-        color: white;
-        padding: 20px;
-        transition: 0.3s;
-        z-index: 1000;
-    }
-
-    .sidebar.open {
-        right: 0;
-    }
-
-    .sidebar a {
-        display: block;
-        padding: 12px 0;
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .sidebar a:hover {
-        color: #ffea00;
-    }
-</style>
-
-<div class="topbar">
-    <div style="font-size: 23px; font-weight: bold;">
-        Histuri.com
-    </div>
-
-    <div class="menu-icon" onclick="toggleMenu()">☰</div>
-</div>
-
-<div id="sideMenu" class="sidebar">
-    <a href="index.html">صفحه اصلی</a>
-    <a href="stories.html">داستان‌ها</a>
-    <a href="add.html">افزودن داستان</a>
-    <a href="about.html">درباره ما</a>
-</div>
-
-<script>
-    function toggleMenu() {
-        document.getElementById("sideMenu").classList.toggle("open");
-    }
-</script>
 
 </html>
