@@ -41,8 +41,8 @@
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <div>
-          <h2>ورود مدیر</h2>
-          <div class="muted">تنها مدیر می‌تواند مقاله ایجاد کند.</div>
+          <h2 id="panelTitle">ورود مدیر</h2>
+          <div class="muted">تنها مدیر می‌تواند مقاله ایجاد یا ویرایش کند.</div>
         </div>
         <div><a href="index.html" class="btn ghost small">بازگشت</a></div>
       </div>
@@ -56,34 +56,54 @@
   </footer>
 
   <script src="script.js"></script>
+
   <script>
     (function(){
-      const ADMIN_PASS = 'iamowner123'; // رمز مدیر — در صورت خواست عوض کن
+
+      const ADMIN_PASS = 'iamowner123';
       const adminArea = document.getElementById('adminArea');
 
+      const urlParams = new URLSearchParams(location.search);
+      const editID = urlParams.get("edit");  // ← اگر این مقدار وجود داشت یعنی مدیر می‌خواهد مقاله را ویرایش کند
+
       function renderLogin(message){
+        document.getElementById("panelTitle").textContent = "ورود مدیر";
         adminArea.innerHTML = `
           <form id="loginForm" class="form-row">
             <input id="pw" class="input" placeholder="رمز مدیر" />
             <button class="btn" type="submit">ورود</button>
           </form>
-          <div id="loginMsg" class="muted" style="margin-top:10px">${message||''}</div>
+          <div class="muted" style="margin-top:10px">${message||''}</div>
         `;
         document.getElementById('loginForm').addEventListener('submit', e=>{
           e.preventDefault();
-          const p = document.getElementById('pw').value;
-          if(p === ADMIN_PASS){
-            localStorage.setItem('histuri_admin_ok','1');
-            renderEditor('');
+          if(document.getElementById('pw').value === ADMIN_PASS){
+            localStorage.setItem('histuri_admin', '1');
+            loadPanel();
           } else {
-            renderLogin('رمز اشتباه است');
+            renderLogin("رمز اشتباه است");
           }
         });
       }
 
-      function renderEditor(msg){
+      function loadPanel(){
+        renderEditorPanel(editID);
+      }
+
+      function renderEditorPanel(editID){
+
+        document.getElementById("panelTitle").textContent =
+          editID ? "ویرایش مقاله" : "ایجاد مقاله";
+
+        const raw = localStorage.getItem("histuri_articles");
+        const arr = raw ? JSON.parse(raw) : [];
+        let editingItem = null;
+
+        if(editID !== null){
+          editingItem = arr[parseInt(editID)];
+        }
+
         adminArea.innerHTML = `
-          <div class="muted">${msg||''}</div>
           <form id="articleForm">
             <div class="form-row">
               <input id="title" class="input" placeholder="عنوان مقاله" required />
@@ -102,85 +122,112 @@
                 <button type="button" class="tool-btn" data-cmd="underline">U</button>
                 <button type="button" class="tool-btn" data-cmd="insertImage">🖼 تصویر</button>
               </div>
-              <div id="editor" class="editor" contenteditable data-placeholder="متن مقاله را اینجا بنویسید..."></div>
+              <div id="editor" class="editor" contenteditable></div>
             </div>
 
             <div style="display:flex;gap:10px;justify-content:flex-end">
-              <button class="btn" type="submit">ثبت مقاله</button>
+              <button class="btn" type="submit">${editID ? "ذخیره تغییرات" : "ثبت مقاله"}</button>
               <button class="btn ghost" id="logoutBtn" type="button">خروج</button>
             </div>
+            <div id="msg" class="muted" style="margin-top:10px"></div>
           </form>
-          <div id="msg" class="muted" style="margin-top:10px"></div>
         `;
 
-        // toolbar actions
-        document.querySelectorAll('.tool-btn').forEach(b=>{
-          b.addEventListener('click', ()=>{
-            const cmd = b.getAttribute('data-cmd');
-            if(cmd === 'insertImage'){
-              const url = prompt('آدرس تصویر را وارد کنید:');
-              if(url) document.execCommand('insertImage', false, url);
+        // تکمیل فرم در حالت ویرایش
+        let thumbBase64 = editingItem ? editingItem.thumbnail : "";
+
+        if(editingItem){
+          document.getElementById("title").value = editingItem.title;
+          document.getElementById("category").value = editingItem.category;
+          document.getElementById("editor").innerHTML = editingItem.content;
+
+          if(editingItem.thumbnail){
+            document.getElementById("thumbPreview").innerHTML =
+              `<img src="${editingItem.thumbnail}" style="width:140px;height:90px;border-radius:8px;object-fit:cover">`;
+          }
+        }
+
+        // toolbar
+        document.querySelectorAll('.tool-btn').forEach(btn=>{
+          btn.addEventListener('click', ()=>{
+            const cmd = btn.dataset.cmd;
+            if(cmd === "insertImage"){
+              const url = prompt("آدرس تصویر:");
+              if(url) document.execCommand("insertImage", false, url);
             } else {
               document.execCommand(cmd, false, null);
             }
           });
         });
 
-        // thumb file
-        const thumbFile = document.getElementById('thumbFile');
-        const thumbPreview = document.getElementById('thumbPreview');
-        let thumbBase64 = '';
-        thumbFile.addEventListener('change', e=>{
+        // آپلود تصویر جدید
+        document.getElementById("thumbFile").addEventListener('change', e=>{
           const f = e.target.files[0];
           if(!f) return;
           const r = new FileReader();
-          r.onload = ()=> {
+          r.onload = ()=>{
             thumbBase64 = r.result;
-            thumbPreview.innerHTML = `<img src="${thumbBase64}" alt="thumb" style="width:140px;height:90px;object-fit:cover;border-radius:8px" />`;
+            document.getElementById("thumbPreview").innerHTML =
+              `<img src="${thumbBase64}" style="width:140px;height:90px;border-radius:8px;object-fit:cover">`;
           };
           r.readAsDataURL(f);
         });
 
-        // submit
-        document.getElementById('articleForm').addEventListener('submit', e=>{
+        // ذخیره مقاله (ایجاد یا ویرایش)
+        document.getElementById("articleForm").addEventListener('submit', e=>{
           e.preventDefault();
-          const title = document.getElementById('title').value.trim();
-          const category = document.getElementById('category').value.trim();
-          const content = document.getElementById('editor').innerHTML.trim();
-          if(!title){ document.getElementById('msg').textContent = 'عنوان لازم است'; return; }
-          const raw = localStorage.getItem('histuri_articles');
-          const arr = raw ? JSON.parse(raw) : [];
-          arr.push({
-            title, category, thumbnail: thumbBase64, content,
-            excerpt: content ? stripHtml(content).slice(0,220) + '...' : ''
-          });
-          localStorage.setItem('histuri_articles', JSON.stringify(arr));
-          // پاک کردن فرم
-          document.getElementById('title').value = '';
-          document.getElementById('category').value = '';
-          document.getElementById('thumbFile').value = '';
-          thumbPreview.innerHTML = '';
-          document.getElementById('editor').innerHTML = '';
-          thumbBase64 = '';
-          document.getElementById('msg').textContent = 'مقاله ذخیره شد.';
+
+          const title = document.getElementById("title").value.trim();
+          const category = document.getElementById("category").value.trim();
+          const content = document.getElementById("editor").innerHTML.trim();
+
+          if(!title) return document.getElementById("msg").textContent = "عنوان لازم است";
+
+          if(editID){ 
+            // حالت ویرایش
+            arr[parseInt(editID)] = {
+              ...arr[parseInt(editID)],
+              title,
+              category,
+              thumbnail: thumbBase64,
+              content,
+              excerpt: content ? stripHtml(content).slice(0,220)+"..." : ""
+            };
+            document.getElementById("msg").textContent = "تغییرات ذخیره شد.";
+          } else {
+            // حالت ایجاد جدید
+            arr.push({
+              title,
+              category,
+              thumbnail: thumbBase64,
+              content,
+              excerpt: content ? stripHtml(content).slice(0,220)+"..." : ""
+            });
+            document.getElementById("msg").textContent = "مقاله ایجاد شد.";
+          }
+
+          localStorage.setItem("histuri_articles", JSON.stringify(arr));
+          setTimeout(()=>location.href="index.html", 700);
         });
 
-        // logout
-        document.getElementById('logoutBtn').addEventListener('click', ()=>{
-          localStorage.removeItem('histuri_admin_ok');
-          renderLogin('خارج شدید');
+        // خروج مدیر
+        document.getElementById("logoutBtn").addEventListener('click', ()=>{
+          localStorage.removeItem("histuri_admin");
+          location.reload();
         });
       }
 
-      // initial
-      if(localStorage.getItem('histuri_admin_ok') === '1'){
-        renderEditor('');
+      // شروع
+      if(localStorage.getItem("histuri_admin") === "1"){
+        loadPanel();
       } else {
-        renderLogin('');
+        renderLogin();
       }
 
       initDrawer();
+
     })();
   </script>
+
 </body>
 </html>
