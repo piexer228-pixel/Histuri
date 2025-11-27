@@ -12,156 +12,141 @@
             font-family: sans-serif;
         }
 
-        .header {
-            background: #003a8c;
+        /* هدر */
+        header {
+            background: #005bbb;
             color: white;
-            padding: 20px;
-            font-size: 22px;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-title {
+            font-size: 23px;
             font-weight: bold;
         }
 
+        /* منو */
+        .menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .sidebar {
+            width: 260px;
+            height: 100%;
+            background: white;
+            position: fixed;
+            top: 0;
+            right: -270px;
+            transition: 0.4s;
+            padding: 20px;
+            box-shadow: -3px 0 10px rgba(0,0,0,0.2);
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 12px;
+            color: #005bbb;
+            font-size: 18px;
+            text-decoration: none;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .close-btn {
+            font-size: 26px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        /* صفحه */
         .container {
             background: white;
+            padding: 25px;
             width: 90%;
             max-width: 800px;
             margin: 30px auto;
-            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
 
         h2 {
-            margin-top: 0;
-            color: #003a8c;
-            font-size: 26px;
-        }
-
-        p {
-            font-size: 17px;
-            line-height: 1.9;
-            text-align: justify;
+            color: #005bbb;
         }
 
         .creator {
-            margin-top: 20px;
+            margin-top: 25px;
+            background: #eaeaea;
             padding: 12px;
-            background: #003a8c;
-            color: white;
-            border-radius: 8px;
+            border-radius: 10px;
             text-align: center;
-            font-size: 16px;
-            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="header">درباره ما</div>
+    <!-- هدر -->
+    <header>
+        <div class="site-title">Histuri.com</div>
 
+        <div class="menu-icon" onclick="openMenu()">☰</div>
+    </header>
+
+    <!-- منوی سه خط -->
+    <div class="sidebar" id="sideMenu">
+        <div class="close-btn" onclick="closeMenu()">✖</div>
+
+        <a href="index.html">صفحه اصلی</a>
+        <a href="stories.html">داستان‌ها</a>
+        <a href="add.html">افزودن مطلب</a>
+        <a href="about.html">درباره ما</a>
+    </div>
+
+    <!-- محتوای صفحه -->
     <div class="container">
-        <h2>به Histuri خوش آمدید</h2>
+        <h2>درباره Histuri</h2>
 
         <p>
-            وب‌سایت Histuri با هدف ایجاد یک فضای آزاد برای مطالعه، یادگیری و اشتراک‌گذاری داستان‌های 
-            تاریخی، سیاسی، اسطوره‌ای، زندگی‌نامه‌ها و مقالات آزاد ساخته شده است.
+            Histuri یک پلتفرم آزاد برای ثبت داستان‌ها، مقاله‌های سیاسی، تاریخی،
+            زندگی‌نامه‌ها و هر نوع نوشته جذاب و ارزشمند است.
         </p>
 
         <p>
-            ما باور داریم که تاریخ فقط مربوط به گذشته نیست؛ بلکه چراغی برای فهم بهتر امروز و آینده است.
-            در این سایت شما می‌توانید:
+            هدف ما ارائه محیطی ساده و کاربردی برای انتشار محتواست تا هر شخصی بتواند
+            دیدگاه‌ها، تحلیل‌ها یا دانسته‌های خود درباره تاریخ و جامعه را به اشتراک بگذارد.
         </p>
 
         <p>
-            • داستان‌های تاریخی و سیاسی بخوانید  
-            • مطالب خودتان را منتشر کنید  
-            • مقالات آزاد و تحلیل‌ها را دنبال کنید  
-            • زندگی‌نامه شخصیت‌های مهم جهان را مرور کنید  
+            شما در Histuri می‌توانید:
+            <br>• داستان‌های تاریخی و سیاسی بخوانید  
+            <br>• مطلب جدید منتشر کنید  
+            <br>• مقاله‌های آزاد بنویسید  
+            <br>• زندگی‌نامه‌ها را مرور کنید  
         </p>
 
         <p>
-            این وب‌سایت تلاش می‌کند مطالعه را ساده، جذاب و در دسترس همه قرار دهد.
+            امیدواریم بلاگ شما را به دنیای جذاب تاریخ و سیاست نزدیک‌تر کند.
         </p>
 
         <div class="creator">
             ساخته شده توسط piex8  
         </div>
 
-        <p style="margin-top: 20px; font-size:14px; color:#777; text-align:center;">
-            تمامی حقوق محفوظ است © Histuri.com
+        <p style="margin-top: 20px; text-align:center; font-size:13px; color:#777;">
+            © تمام حقوق محفوظ است | Histuri.com
         </p>
     </div>
 
+    <script>
+        function openMenu() {
+            document.getElementById("sideMenu").style.right = "0";
+        }
+        function closeMenu() {
+            document.getElementById("sideMenu").style.right = "-270px";
+        }
+    </script>
+
 </body>
-    <!-- منوی سه خط -->
-<style>
-    .topbar {
-        background: #003a8c;
-        color: white;
-        padding: 15px;
-        font-size: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .menu-icon {
-        cursor: pointer;
-        font-size: 28px;
-        user-select: none;
-    }
-
-    /* منوی کشویی */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        right: -260px;
-        width: 260px;
-        height: 100%;
-        background: #003a8c;
-        color: white;
-        padding: 20px;
-        transition: 0.3s;
-        z-index: 1000;
-    }
-
-    .sidebar.open {
-        right: 0;
-    }
-
-    .sidebar a {
-        display: block;
-        padding: 12px 0;
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .sidebar a:hover {
-        color: #ffea00;
-    }
-</style>
-
-<div class="topbar">
-    <div style="font-size: 23px; font-weight: bold;">
-        Histuri.com
-    </div>
-
-    <div class="menu-icon" onclick="toggleMenu()">☰</div>
-</div>
-
-<div id="sideMenu" class="sidebar">
-    <a href="index.html">صفحه اصلی</a>
-    <a href="stories.html">داستان‌ها</a>
-    <a href="add.html">افزودن داستان</a>
-    <a href="about.html">درباره ما</a>
-</div>
-
-<script>
-    function toggleMenu() {
-        document.getElementById("sideMenu").classList.toggle("open");
-    }
-</script>
-
 </html>
