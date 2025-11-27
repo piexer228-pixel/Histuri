@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Histuri - مقالات</title>
+  <title>Histuri.com — مقالات</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -11,58 +11,71 @@
   <header class="header">
     <div class="brand">
       <button id="openDrawer" class="hamburger" aria-label="menu">☰</button>
-      <div>
-        <h1 class="site-title">Histuri.co</h1>
-        <div class="muted">وبلاگ اختصاصی</div>
+      <div class="brand-text">
+        <h1 class="site-title">Histuri.com ✨</h1>
+        <div class="muted">وبلاگ فانتزی شما</div>
       </div>
     </div>
+
     <nav class="top-links">
       <a href="index.html">مقالات</a>
       <a href="stories.html">داستان‌ها</a>
       <a href="about.html">درباره</a>
-      <a href="add.html">ورود مدیر</a>
+      <a href="add.html" class="btn small ghost">ورود مدیر</a>
     </nav>
   </header>
 
-  <!-- Drawer -->
+  <!-- Drawer + Backdrop -->
   <div id="backdrop" class="backdrop"></div>
   <aside id="drawer" class="drawer" aria-hidden="true" role="dialog">
     <div class="drawer-head">
-      <strong>منو</strong>
+      <div class="drawer-title">منوی سایت <span class="emoji">🌈</span></div>
       <button id="closeDrawer" class="close-btn" aria-label="close">✕</button>
     </div>
+
     <nav class="drawer-nav">
-      <a href="index.html" class="drawer-link">خانه</a>
-      <a href="stories.html" class="drawer-link">داستان‌ها</a>
-      <a href="about.html" class="drawer-link">درباره</a>
-      <a href="add.html" class="drawer-link">ورود مدیر</a>
+      <a href="index.html" class="drawer-link">🏠 خانه</a>
+      <a href="stories.html" class="drawer-link">📚 داستان‌ها</a>
+      <a href="about.html" class="drawer-link">ℹ️ درباره</a>
+      <a href="add.html" class="drawer-link">🔐 ورود مدیر</a>
     </nav>
-    <div class="drawer-footer muted">نسخه ساده — طراحی واکنشگرا</div>
+
+    <div class="drawer-footer muted">این سایت توسط شرکت <strong>NIGHTNET</strong> ساخته شده</div>
   </aside>
 
   <!-- Main -->
   <main class="container">
-    <section class="card">
-      <h2>آخرین مقالات</h2>
-      <p class="muted">جدیدترین مقالات شما در اینجا نمایش داده می‌شود.</p>
+    <section class="hero card">
+      <div class="hero-left">
+        <h2>مقالات جدید</h2>
+        <p class="muted">مقالات فانتزی و مینیمال — فقط شما می‌توانید مطلب قرار دهید.</p>
+      </div>
+      <div class="hero-right">
+        <a href="add.html" class="btn gradient">نوشتن مقاله</a>
+      </div>
     </section>
 
     <section id="articles" class="article-grid"></section>
 
     <section class="card">
-      <h3>آموزش</h3>
-      <p class="muted">برای افزودن مقاله به صفحه <a href="add.html">ورود مدیر</a> بروید.</p>
+      <h3>دسته‌ها و موارد محبوب</h3>
+      <div class="chips">
+        <span class="chip" style="--c: #1e73ff">تکنولوژی</span>
+        <span class="chip" style="--c: #ff6b6b">داستان</span>
+        <span class="chip" style="--c: #ffa94d">زندگی</span>
+        <span class="chip" style="--c: #7c5cff">هنر</span>
+      </div>
     </section>
   </main>
 
   <!-- Footer -->
   <footer class="site-footer">
-    <div>این سایت توسط شرکت <strong>NIGHTNET</strong> ساخته شده</div>
+    <div>این سایت توسط شرکت <strong>NIGHTNET</strong> ساخته شده — © Histuri.com</div>
   </footer>
 
   <script src="script.js"></script>
   <script>
-    // صفحه index: بارگذاری مقالات
+    // بارگذاری و نمایش مقالات
     (function(){
       const grid = document.getElementById('articles');
       function render(){
@@ -70,28 +83,28 @@
         const raw = localStorage.getItem('histuri_articles');
         const arr = raw ? JSON.parse(raw) : [];
         if(!arr.length){
-          grid.innerHTML = '<div class="card">تاکنون مقاله‌ای منتشر نشده. <a href="add.html">ورود مدیر</a></div>';
+          grid.innerHTML = '<div class="card">تاکنون مقاله‌ای منتشر نشده. <a href="add.html" class="btn ghost small">ورود مدیر</a></div>';
           return;
         }
-        arr.slice().reverse().forEach((a,i)=>{
+        arr.slice().reverse().forEach((a, i)=>{
           const idx = arr.length - 1 - i;
           const el = document.createElement('article');
           el.className = 'article-card';
           el.innerHTML = `
             ${a.thumbnail ? `<img class="article-thumb" src="${a.thumbnail}" alt="${escapeHtml(a.title)}">` : ''}
-            <h3>${escapeHtml(a.title)}</h3>
-            <div class="muted small">دسته: ${escapeHtml(a.category || 'عمومی')}</div>
-            <div class="excerpt">${a.excerpt || (stripHtml(a.content||'').slice(0,180)+'...')}</div>
-            <div style="display:flex;justify-content:flex-end;margin-top:10px">
-              <a class="btn ghost" href="story.html?id=${idx}">مشاهده کامل</a>
+            <div class="article-body">
+              <h3>${escapeHtml(a.title)}</h3>
+              <div class="muted small">دسته: ${escapeHtml(a.category || 'عمومی')}</div>
+              <p class="excerpt">${a.excerpt || stripHtml(a.content||'').slice(0,160) + '...'}</p>
+            </div>
+            <div class="article-actions">
+              <a class="btn ghost small" href="story.html?id=${idx}">مشاهده</a>
             </div>
           `;
           grid.appendChild(el);
         });
       }
       render();
-
-      // Drawer behavior (shared)
       initDrawer();
     })();
   </script>
