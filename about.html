@@ -1,143 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fa" dir="rtl">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>درباره ما | Histuri</title>
-
-    <style>
-        body {
-            margin: 0;
-            background: #f4f4f4;
-            font-family: sans-serif;
-        }
-
-        /* هدر */
-        header {
-            background: #005bbb;
-            color: white;
-            padding: 18px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .site-title {
-            font-size: 23px;
-            font-weight: bold;
-        }
-
-        .menu-icon {
-            font-size: 30px;
-            cursor: pointer;
-        }
-
-        /* منوی سه خط */
-        .sidebar {
-            width: 260px;
-            height: 100%;
-            background: white;
-            position: fixed;
-            top: 0;
-            right: -270px;
-            transition: 0.4s;
-            padding: 20px;
-            box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .sidebar a {
-            display: block;
-            padding: 12px;
-            color: #005bbb;
-            font-size: 18px;
-            text-decoration: none;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .close-btn {
-            font-size: 26px;
-            cursor: pointer;
-            text-align: left;
-        }
-
-        /* محتوا */
-        .container {
-            width: 90%;
-            max-width: 900px;
-            margin: 25px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-            line-height: 1.9;
-            font-size: 17px;
-            color: #333;
-        }
-
-        h2 {
-            color: #005bbb;
-            margin-bottom: 15px;
-            font-size: 24px;
-        }
-    </style>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>درباره Histuri</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-
-    <!-- هدر -->
-    <header>
-        <div class="site-title">Histuri.com</div>
-        <div class="menu-icon" onclick="openMenu()">☰</div>
-    </header>
-
-    <!-- منوی سه‌خط -->
-    <div class="sidebar" id="sideMenu">
-        <div class="close-btn" onclick="closeMenu()">✖</div>
-
-        <a href="index.html">صفحه اصلی</a>
-        <a href="stories.html">داستان‌ها</a>
-        <a href="add.html">افزودن مطلب</a>
-        <a href="about.html">درباره ما</a>
+  <header class="header">
+    <div class="brand">
+      <button id="openDrawer5" class="hamburger" aria-label="menu">☰</button>
+      <div>
+        <h1 class="site-title">Histuri.co</h1>
+        <div class="muted">درباره ما</div>
+      </div>
     </div>
+    <nav class="top-links">
+      <a href="index.html">مقالات</a>
+      <a href="stories.html">داستان‌ها</a>
+      <a href="add.html">ورود مدیر</a>
+    </nav>
+  </header>
 
-    <div class="container">
-
-        <h2>درباره ما</h2>
-
-        <p>
-            سایت <b>Histuri</b> با هدف افزایش آگاهی عمومی در زمینه‌های تاریخی و سیاسی ساخته شده است.
-            هدف ما این است که کاربران بتوانند با ساده‌ترین روش‌ها، مقالات، داستان‌ها و اطلاعات مفید
-            در موضوعات مختلف را مطالعه کنند و حتی مطالب خودشان را نیز منتشر کنند.
-        </p>
-
-        <p>
-            ما تلاش کردیم محیطی ساده، شاد، قابل فهم و در عین حال کاربردی ایجاد کنیم
-            تا هر کسی بتواند بدون پیچیدگی از آن استفاده کند.
-        </p>
-
-        <p>
-            این وبسایت با طراحی و مدیریت:
-            <b style="color:#005bbb">piex8</b>
-            ساخته شده است.
-        </p>
-
-        <p>
-            امیدواریم از تجربهٔ کار با Histuri لذت ببرید.
-        </p>
-
+  <div id="backdrop5" class="backdrop"></div>
+  <aside id="drawer5" class="drawer" aria-hidden="true" role="dialog">
+    <div class="drawer-head">
+      <strong>منو</strong>
+      <button id="closeDrawer5" class="close-btn" aria-label="close">✕</button>
     </div>
+    <nav class="drawer-nav">
+      <a href="index.html" class="drawer-link">خانه</a>
+      <a href="stories.html" class="drawer-link">داستان‌ها</a>
+      <a href="add.html" class="drawer-link">ورود مدیر</a>
+    </nav>
+  </aside>
 
-    <script>
-        function openMenu() {
-            document.getElementById("sideMenu").style.right = "0";
-        }
-        function closeMenu() {
-            document.getElementById("sideMenu").style.right = "-270px";
-        }
-    </script>
+  <main class="container">
+    <div class="card">
+      <h2>درباره Histuri</h2>
+      <p>این وبلاگ توسط شرکت <strong>NIGHTNET</strong> پیاده‌سازی شده است. شما می‌توانید مقالات را مشاهده کنید و تنها مدیر (با ورود) می‌تواند مقاله جدید اضافه کند.</p>
+    </div>
+  </main>
 
+  <footer class="site-footer">
+    <div>این سایت توسط شرکت <strong>NIGHTNET</strong> ساخته شده</div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>initDrawer();</script>
 </body>
-
 </html>
