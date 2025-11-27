@@ -1,6 +1,9 @@
-/* helper functions used across pages */
+/* script.js
+   توابع عمومی و راه‌اندازی منوها و کمک‌کننده‌ها
+*/
+
+/* ---------- Drawer init (پشتیبانی از چند صفحه با id های مشابه) ---------- */
 function initDrawer(){
-  // supports multiple sets (openDrawer, openDrawer2...)
   document.querySelectorAll('[id^="openDrawer"]').forEach(btn=>{
     const suffix = btn.id.replace('openDrawer','');
     const drawer = document.getElementById('drawer'+(suffix||''));
@@ -11,6 +14,8 @@ function initDrawer(){
       drawer.classList.add('open');
       backdrop.classList.add('show');
       drawer.setAttribute('aria-hidden','false');
+      // focus for accessibility
+      drawer.querySelector('a,button,input')?.focus();
     });
     backdrop.addEventListener('click', ()=> {
       drawer.classList.remove('open');
@@ -22,23 +27,35 @@ function initDrawer(){
       backdrop.classList.remove('show');
       drawer.setAttribute('aria-hidden','true');
     });
-    // ensure when closed pointer-events none on backdrop (handled by CSS)
   });
 }
 
-/* small HTML helpers */
+/* ---------- Helpers ---------- */
 function escapeHtml(s){
   if(!s) return '';
-  return s.replace(/[&<>"']/g, function(m){
+  return String(s).replace(/[&<>"']/g, function(m){
     return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]);
   });
 }
 function stripHtml(s){
   if(!s) return '';
-  return s.replace(/<[^>]*>/g,'');
+  return String(s).replace(/<[^>]*>/g,'');
 }
 
-/* make helpers global so inline scripts can use them */
+/* make helpers global */
 window.initDrawer = initDrawer;
 window.escapeHtml = escapeHtml;
 window.stripHtml = stripHtml;
+
+/* ---------- Accessibility: close drawer with Escape ---------- */
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    document.querySelectorAll('.drawer.open').forEach(d=>{
+      d.classList.remove('open');
+      const id = d.id || '';
+      const backdrop = document.getElementById('backdrop' + id.replace('drawer',''));
+      if(backdrop) backdrop.classList.remove('show');
+      d.setAttribute('aria-hidden','true');
+    });
+  }
+});
