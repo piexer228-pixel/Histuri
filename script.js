@@ -1,6 +1,7 @@
 // باز و بسته شدن منوی موبایل
-document.getElementById("menuToggle").addEventListener("click", function () {
-    document.getElementById("mobileMenu").classList.toggle("open");
+document.getElementById("menuToggle")?.addEventListener("click", function () {
+    const menu = document.getElementById("mobileMenu");
+    if (menu) menu.classList.toggle("open");
 });
 
 // اسکرول نرم برای لینک‌های داخلی
@@ -21,13 +22,15 @@ links.forEach(link => {
 // نمایش / مخفی شدن بخش افزودن داستان
 function toggleAddForm() {
     const form = document.getElementById("addForm");
-    form.style.display = (form.style.display === "block") ? "none" : "block";
+    if (form) {
+        form.style.display = (form.style.display === "block") ? "none" : "block";
+    }
 }
 
-// ذخیره‌سازی داستان جدید در LocalStorage
+// ذخیره‌سازی داستان جدید
 function saveStory() {
-    let title = document.getElementById("storyTitle").value.trim();
-    let text = document.getElementById("storyText").value.trim();
+    let title = document.getElementById("storyTitle")?.value.trim() || "";
+    let text = document.getElementById("storyText")?.value.trim() || "";
 
     if (title === "" || text === "") {
         alert("لطفاً عنوان و متن داستان را کامل وارد کنید.");
@@ -39,13 +42,14 @@ function saveStory() {
     localStorage.setItem("stories", JSON.stringify(stories));
 
     alert("داستان با موفقیت ذخیره شد!");
-    document.getElementById("storyTitle").value = "";
-    document.getElementById("storyText").value = "";
+
+    if (document.getElementById("storyTitle")) document.getElementById("storyTitle").value = "";
+    if (document.getElementById("storyText")) document.getElementById("storyText").value = "";
 }
 
-// نمایش لیست داستان‌ها در صفحه stories.html
+// نمایش لیست داستان‌ها
 function loadStories() {
-    let list = document.getElementById("storiesList");
+    const list = document.getElementById("storiesList");
     if (!list) return;
 
     let stories = JSON.parse(localStorage.getItem("stories")) || [];
@@ -53,24 +57,27 @@ function loadStories() {
     list.innerHTML = "";
 
     stories.forEach((story, index) => {
-        let item = document.createElement("li");
-        item.innerHTML = `<a href="story.html?id=${index}">${story.title}</a>`;
-        list.appendChild(item);
+        let li = document.createElement("li");
+        li.innerHTML = `<a href="story.html?id=${index}">${story.title}</a>`;
+        list.appendChild(li);
     });
 }
 
-// نمایش یک داستان در صفحه story.html
+// نمایش یک داستان
 function loadStory() {
-    let params = new URLSearchParams(window.location.search);
-    let id = params.get("id");
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
 
     if (id === null) return;
 
-    let stories = JSON.parse(localStorage.getItem("stories")) || [];
-    let story = stories[id];
+    const stories = JSON.parse(localStorage.getItem("stories")) || [];
+    const story = stories[id];
 
     if (!story) return;
 
-    document.getElementById("storyTitleDisplay").innerText = story.title;
-    document.getElementById("storyTextDisplay").innerText = story.text;
+    const titleEl = document.getElementById("storyTitleDisplay");
+    const textEl = document.getElementById("storyTextDisplay");
+
+    if (titleEl) titleEl.innerText = story.title;
+    if (textEl) textEl.innerText = story.text;
 }
