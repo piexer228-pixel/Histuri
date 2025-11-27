@@ -88,4 +88,75 @@
     </div>
 
 </body>
+    <!-- منوی سه خط -->
+<style>
+    .topbar {
+        background: #003a8c;
+        color: white;
+        padding: 15px;
+        font-size: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu-icon {
+        cursor: pointer;
+        font-size: 28px;
+        user-select: none;
+    }
+
+    /* منوی کشویی */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        right: -260px;
+        width: 260px;
+        height: 100%;
+        background: #003a8c;
+        color: white;
+        padding: 20px;
+        transition: 0.3s;
+        z-index: 1000;
+    }
+
+    .sidebar.open {
+        right: 0;
+    }
+
+    .sidebar a {
+        display: block;
+        padding: 12px 0;
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .sidebar a:hover {
+        color: #ffea00;
+    }
+</style>
+
+<div class="topbar">
+    <div style="font-size: 23px; font-weight: bold;">
+        Histuri.com
+    </div>
+
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+</div>
+
+<div id="sideMenu" class="sidebar">
+    <a href="index.html">صفحه اصلی</a>
+    <a href="stories.html">داستان‌ها</a>
+    <a href="add.html">افزودن داستان</a>
+    <a href="about.html">درباره ما</a>
+</div>
+
+<script>
+    function toggleMenu() {
+        document.getElementById("sideMenu").classList.toggle("open");
+    }
+</script>
+
 </html>
