@@ -1,66 +1,76 @@
-/* -----------------------------------
-   کنترل منوی سه‌خط (تمام صفحات)
------------------------------------- */
-function openMenu() {
-    let menu = document.getElementById("sideMenu");
-    if (menu) menu.style.right = "0";
+// باز و بسته شدن منوی موبایل
+document.getElementById("menuToggle").addEventListener("click", function () {
+    document.getElementById("mobileMenu").classList.toggle("open");
+});
+
+// اسکرول نرم برای لینک‌های داخلی
+const links = document.querySelectorAll('a[href^="#"]');
+links.forEach(link => {
+    link.addEventListener("click", function (e) {
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+            e.preventDefault();
+            window.scrollTo({
+                top: target.offsetTop - 60,
+                behavior: "smooth"
+            });
+        }
+    });
+});
+
+// نمایش / مخفی شدن بخش افزودن داستان
+function toggleAddForm() {
+    const form = document.getElementById("addForm");
+    form.style.display = (form.style.display === "block") ? "none" : "block";
 }
 
-function closeMenu() {
-    let menu = document.getElementById("sideMenu");
-    if (menu) menu.style.right = "-270px";
-}
+// ذخیره‌سازی داستان جدید در LocalStorage
+function saveStory() {
+    let title = document.getElementById("storyTitle").value.trim();
+    let text = document.getElementById("storyText").value.trim();
 
-/* -----------------------------------
-   ابزارهای ویرایش متن (صفحه add.html)
------------------------------------- */
-function formatText(type) {
-    let textarea = document.getElementById("editor");
-    if (!textarea) return;
-
-    if (type === "bold") {
-        textarea.value += "<b>متن بولد</b>";
-    }
-
-    else if (type === "italic") {
-        textarea.value += "<i>متن کج</i>";
-    }
-
-    else if (type === "increase") {
-        textarea.value += "<span style='font-size:20px;'>فونت بزرگ</span>";
-    }
-
-    else if (type === "decrease") {
-        textarea.value += "<span style='font-size:12px;'>فونت کوچک</span>";
-    }
-}
-
-/* -----------------------------------
-   ثبت مقاله (نسخه اولیه و ساده)
------------------------------------- */
-function savePost() {
-    let title = document.getElementById("title");
-    let category = document.getElementById("category");
-    let text = document.getElementById("editor");
-
-    if (!title || !category || !text) return;
-
-    if (title.value.trim() === "" || text.value.trim() === "") {
-        alert("لطفاً عنوان و متن را وارد کنید.");
+    if (title === "" || text === "") {
+        alert("لطفاً عنوان و متن داستان را کامل وارد کنید.");
         return;
     }
 
-    // در آینده ذخیره واقعی اضافه می‌کنیم
-    alert("مطلب با موفقیت ذخیره شد! (نسخه اولیه)");
+    let stories = JSON.parse(localStorage.getItem("stories")) || [];
+    stories.push({ title, text });
+    localStorage.setItem("stories", JSON.stringify(stories));
+
+    alert("داستان با موفقیت ذخیره شد!");
+    document.getElementById("storyTitle").value = "";
+    document.getElementById("storyText").value = "";
 }
 
-/* -----------------------------------
-   جلوگیری از خطا در صفحات بدون منو
------------------------------------- */
-document.addEventListener("DOMContentLoaded", function () {
-    let m1 = document.querySelector(".menu-icon");
-    let m2 = document.querySelector(".close-btn");
+// نمایش لیست داستان‌ها در صفحه stories.html
+function loadStories() {
+    let list = document.getElementById("storiesList");
+    if (!list) return;
 
-    if (m1) m1.addEventListener("click", openMenu);
-    if (m2) m2.addEventListener("click", closeMenu);
-});
+    let stories = JSON.parse(localStorage.getItem("stories")) || [];
+
+    list.innerHTML = "";
+
+    stories.forEach((story, index) => {
+        let item = document.createElement("li");
+        item.innerHTML = `<a href="story.html?id=${index}">${story.title}</a>`;
+        list.appendChild(item);
+    });
+}
+
+// نمایش یک داستان در صفحه story.html
+function loadStory() {
+    let params = new URLSearchParams(window.location.search);
+    let id = params.get("id");
+
+    if (id === null) return;
+
+    let stories = JSON.parse(localStorage.getItem("stories")) || [];
+    let story = stories[id];
+
+    if (!story) return;
+
+    document.getElementById("storyTitleDisplay").innerText = story.title;
+    document.getElementById("storyTextDisplay").innerText = story.text;
+}
