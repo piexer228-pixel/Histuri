@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Histuri - مقاله</title>
+  <title>Histuri.com — مقاله</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="header">
     <div class="brand">
       <button id="openDrawer3" class="hamburger" aria-label="menu">☰</button>
-      <div>
-        <h1 class="site-title">Histuri.co</h1>
+      <div class="brand-text">
+        <h1 class="site-title">Histuri.com ✨</h1>
         <div class="muted">مشاهده مقاله</div>
       </div>
     </div>
@@ -25,13 +25,13 @@
   <div id="backdrop3" class="backdrop"></div>
   <aside id="drawer3" class="drawer" aria-hidden="true" role="dialog">
     <div class="drawer-head">
-      <strong>منو</strong>
+      <div class="drawer-title">منو</div>
       <button id="closeDrawer3" class="close-btn" aria-label="close">✕</button>
     </div>
     <nav class="drawer-nav">
-      <a href="index.html" class="drawer-link">خانه</a>
-      <a href="stories.html" class="drawer-link">داستان‌ها</a>
-      <a href="about.html" class="drawer-link">درباره</a>
+      <a href="index.html" class="drawer-link">🏠 خانه</a>
+      <a href="stories.html" class="drawer-link">📚 داستان‌ها</a>
+      <a href="about.html" class="drawer-link">ℹ️ درباره</a>
     </nav>
   </aside>
 
@@ -40,7 +40,7 @@
   </main>
 
   <footer class="site-footer">
-    <div>این سایت توسط شرکت <strong>NIGHTNET</strong> ساخته شده</div>
+    <div>این سایت توسط شرکت <strong>NIGHTNET</strong> ساخته شده — © Histuri.com</div>
   </footer>
 
   <script src="script.js"></script>
@@ -53,18 +53,18 @@
       const arr = raw ? JSON.parse(raw) : [];
       const area = document.getElementById('postArea');
       if(!id || !arr[id]){
-        area.innerHTML = `<div class="card"><p>مطلب یافت نشد. <a href="index.html">بازگشت</a></p></div>`;
+        area.innerHTML = `<div class="card">مطلب یافت نشد. <a href="index.html" class="btn ghost small">بازگشت</a></div>`;
         return;
       }
       const a = arr[id];
       area.innerHTML = `
-        <article class="card">
+        <article class="card post-card">
           ${a.thumbnail ? `<img src="${a.thumbnail}" class="article-thumb" alt="${escapeHtml(a.title)}">` : ''}
           <h2>${escapeHtml(a.title)}</h2>
           <div class="muted small">دسته: ${escapeHtml(a.category||'عمومی')}</div>
           <div class="content" style="margin-top:12px">${a.content || ''}</div>
-          <div style="display:flex;justify-content:flex-end;margin-top:10px">
-            <a class="btn ghost" href="index.html">بازگشت</a>
+          <div style="display:flex;justify-content:flex-end;margin-top:12px">
+            <a class="btn ghost small" href="index.html">بازگشت</a>
           </div>
         </article>
       `;
