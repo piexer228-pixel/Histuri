@@ -2,69 +2,94 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>Histuri.com</title>
+<title>Histuri - هیستوری</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ✦ آیکون سایت (همان عکسی که فرستادی) -->
 <link rel="icon" href="histuri-icon.png">
 
 <style>
-body {
-  font-family: sans-serif;
-  background: #fff7e6;
-  margin: 0;
-  padding: 0;
+body{
+    margin:0;
+    font-family:"Vazirmatn", sans-serif;
+    background:#fff7e6;
 }
-header {
-  background: linear-gradient(45deg,#ff9b32,#ffda4f,#7c5bff,#00d6c9);
-  padding: 15px;
-  color: white;
-  font-size: 22px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+header{
+    background:linear-gradient(45deg,#ff9b32,#ffda4f,#9c5bff,#00d6c9);
+    padding:15px;
+    color:white;
+    font-size:25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
-.menu-btn {
-  font-size: 30px;
-  cursor: pointer;
+.menu{
+    font-size:32px;
+    cursor:pointer;
 }
-.sidebar {
-  position: fixed;
-  top: 0; right: -250px;
-  width: 250px;
-  height: 100%;
-  background: #fff;
-  box-shadow: -3px 0 10px rgba(0,0,0,0.2);
-  transition: .3s;
-  padding-top: 50px;
+.sidebar{
+    position:fixed;
+    top:0;
+    right:-260px;
+    width:250px;
+    height:100%;
+    background:white;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+    transition:.3s;
+    padding-top:50px;
 }
-.sidebar a {
-  display:block;
-  padding: 15px;
-  font-size: 18px;
-  text-decoration:none;
-  color:#333;
-  border-bottom:1px solid #eee;
+.sidebar a{
+    display:block;
+    padding:15px;
+    font-size:18px;
+    border-bottom:1px solid #ddd;
+    text-decoration:none;
+    color:#444;
 }
-.section {
-  padding: 20px;
-  display:none;
+.section{
+    padding:20px;
+    display:none;
 }
-.section.active {
-  display:block;
+.section.active{
+    display:block;
 }
-.list-box {
-  background:white;
-  padding:15px;
-  margin:12px 0;
-  border-radius:10px;
-  box-shadow:0 3px 8px rgba(0,0,0,0.1);
+.top-graphics{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin:20px 0;
 }
-img.story-img {
-  max-width:100%;
-  border-radius:10px;
-  margin-top:10px;
+.top-graphics img{
+    width:90px;
+    filter:grayscale(100%);
 }
-button {
-  cursor:pointer;
+.box{
+    background:white;
+    padding:15px;
+    margin:15px 0;
+    border-radius:10px;
+    box-shadow:0 3px 7px rgba(0,0,0,.1);
+}
+.box img{
+    width:100%;
+    border-radius:8px;
+    margin-top:10px;
+}
+button{
+    margin-top:10px;
+    padding:10px 18px;
+    border:none;
+    border-radius:6px;
+    background:#7c5bff;
+    color:white;
+    cursor:pointer;
+}
+input, textarea{
+    width:100%;
+    padding:10px;
+    margin-top:8px;
+    border-radius:6px;
+    border:1px solid #bbb;
 }
 </style>
 </head>
@@ -72,137 +97,150 @@ button {
 <body>
 
 <header>
-  <div>Histuri.com</div>
-  <div class="menu-btn" onclick="openMenu()">☰</div>
+    <div>Histuri</div>
+    <div class="menu" onclick="openMenu()">☰</div>
 </header>
 
-<div class="sidebar" id="menuBox">
-  <a onclick="showSection('history')">تاریخی</a>
-  <a onclick="showSection('politics')">سیاسی</a>
-  <a onclick="showSection('about')">درباره ما</a>
-  <a onclick="showSection('manager')">مدیریت محتوا</a>
+<!-- ●●● منوی سه‌خطی ●●● -->
+<div id="side" class="sidebar">
+    <a onclick="show('history')">تاریخی</a>
+    <a onclick="show('politics')">سیاسی</a>
+    <a onclick="show('about')">درباره ما</a>
+    <a onclick="show('manager')">مدیریت محتوا</a>
 </div>
 
-<!-- بخش‌های سایت -->
+<!-- ●●● بخش تاریخی ●●● -->
 <div id="history" class="section active">
-  <h2>داستان‌های تاریخی</h2>
-  <div id="historyList"></div>
+    <h2>داستان‌های تاریخی</h2>
+
+    <div class="top-graphics">
+        <img src="https://i.imgur.com/fPjqH6O.png">   <!-- اهرام -->
+        <img src="https://i.imgur.com/XfyT3zL.png">   <!-- برج پیزا -->
+        <img src="https://i.imgur.com/ZquwktN.png">   <!-- معبد -->
+    </div>
+
+    <div id="historyList"></div>
 </div>
 
+<!-- ●●● بخش سیاسی ●●● -->
 <div id="politics" class="section">
-  <h2>مقالات سیاسی</h2>
-  <div id="politicsList"></div>
+    <h2>مباحث سیاسی</h2>
+
+    <div class="top-graphics">
+        <img src="https://i.imgur.com/9yy0M1F.png">  <!-- گاندی -->
+        <img src="https://i.imgur.com/ZlqTIXn.png">  <!-- چرچیل -->
+        <img src="https://i.imgur.com/rukOrOR.png">  <!-- قذافی -->
+    </div>
+
+    <div id="politicsList"></div>
 </div>
 
+<!-- ●●● بخش درباره ما ●●● -->
 <div id="about" class="section">
-  <h2>درباره Histuri</h2>
-  <p>
-    این سایت با هدف گسترش اطلاعات عمومی، تاریخی و سیاسی ساخته شده است.  
-    طراحی و توسعه توسط **piex8** انجام شده.
-  </p>
+    <h2>درباره ما</h2>
+    <p>
+    سایت Histuri با هدف افزایش آگاهی عمومی در زمینه تاریخ و سیاست ساخته شده است.  
+    مطالب توسط کاربران و علاقه‌مندان گردآوری می‌شود.  
+    طراحی و ساخت توسط <b>piex8</b>.
+    </p>
 </div>
 
-<!-- مدیریت محتوا -->
+<!-- ●●● بخش مدیریت محتوا ●●● -->
 <div id="manager" class="section">
-  <h2>مدیریت محتوا</h2>
+    <h2>مدیریت محتوا</h2>
 
-  <h3>افزودن داستان تاریخی</h3>
-  <input id="hTitle" placeholder="عنوان">
-  <textarea id="hText" placeholder="متن"></textarea>
-  <input id="hImg" type="file">
-  <button onclick="addItem('history')">افزودن داستان</button>
+    <h3>افزودن داستان تاریخی</h3>
+    <input id="hTitle" placeholder="عنوان">
+    <textarea id="hText" placeholder="متن"></textarea>
+    <input id="hImg" type="file">
+    <button onclick="add('history')">افزودن</button>
 
-  <hr>
+    <hr>
 
-  <h3>افزودن مقاله سیاسی</h3>
-  <input id="pTitle" placeholder="عنوان">
-  <textarea id="pText" placeholder="متن"></textarea>
-  <input id="pImg" type="file">
-  <button onclick="addItem('politics')">افزودن مقاله</button>
+    <h3>افزودن مقاله سیاسی</h3>
+    <input id="pTitle" placeholder="عنوان">
+    <textarea id="pText" placeholder="متن"></textarea>
+    <input id="pImg" type="file">
+    <button onclick="add('politics')">افزودن</button>
 </div>
 
 <script>
-function openMenu(){ 
-  document.getElementById('menuBox').style.right="0";
-  setTimeout(()=>{},3000);
+function openMenu(){
+    document.getElementById("side").style.right="0";
 }
-window.onclick = function(e){
-  if(!e.target.closest("#menuBox") && !e.target.closest(".menu-btn")){
-    document.getElementById('menuBox').style.right="-250px";
-  }
-};
+window.onclick=function(e){
+    if(!e.target.closest(".menu") && !e.target.closest("#side")){
+        document.getElementById("side").style.right="-260px";
+    }
+}
 
-function showSection(id){
-  document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+function show(id){
+    document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
 }
 
 function getData(){
-  return JSON.parse(localStorage.getItem("histuriData") || '{"history":[],"politics":[]}');
+    return JSON.parse(localStorage.getItem("histuri") || '{"history":[],"politics":[]}');
 }
-function saveData(d){
-  localStorage.setItem("histuriData", JSON.stringify(d));
-}
+function save(d){ localStorage.setItem("histuri", JSON.stringify(d)); }
 
-function addItem(type){
-  let title = document.getElementById(type=="history"?"hTitle":"pTitle").value;
-  let text = document.getElementById(type=="history"?"hText":"pText").value;
-  let imgFile = document.getElementById(type=="history"?"hImg":"pImg").files[0];
+function add(type){
+    let t = document.getElementById(type=="history"?"hTitle":"pTitle").value;
+    let tx = document.getElementById(type=="history"?"hText":"pText").value;
+    let f = document.getElementById(type=="history"?"hImg":"pImg").files[0];
 
-  if(!title||!text) return alert("همه فیلدها لازم‌اند");
+    if(!t || !tx) return alert("پر کردن همه فیلدها الزامی است.");
 
-  let reader = new FileReader();
-  reader.onload = function(){
-    let data = getData();
-    data[type].push({title,text,img:reader.result});
-    saveData(data);
-    showList();
-    alert("افزوده شد!");
-  }
-  if(imgFile) reader.readAsDataURL(imgFile);
-  else reader.onload();
+    let reader = new FileReader();
+    reader.onload = function(){
+        let data = getData();
+        data[type].push({title:t,text:tx,img:reader.result});
+        save(data);
+        loadLists();
+        alert("افزوده شد!");
+    }
+    if(f) reader.readAsDataURL(f);
+    else reader.onload();
 }
 
-function showList(){
-  let data = getData();
+function loadLists(){
+    let d = getData();
+    let h="", p="";
 
-  let hHTML = "";
-  data.history.forEach((item,i)=>{
-    hHTML += boxTemplate(item,i,"history");
-  });
-  document.getElementById("historyList").innerHTML=hHTML;
+    d.history.forEach((x,i)=>{
+        h += box(x,i,"history");
+    });
+    document.getElementById("historyList").innerHTML=h;
 
-  let pHTML = "";
-  data.politics.forEach((item,i)=>{
-    pHTML += boxTemplate(item,i,"politics");
-  });
-  document.getElementById("politicsList").innerHTML=pHTML;
+    d.politics.forEach((x,i)=>{
+        p += box(x,i,"politics");
+    });
+    document.getElementById("politicsList").innerHTML=p;
 }
 
-function boxTemplate(item,index,type){
-  return `
-  <div class='list-box'>
-    <h3>${item.title}</h3>
-    <p>${item.text.substring(0,120)}...</p>
-    ${item.img ? `<img class="story-img" src="${item.img}">` : ""}
-    <button onclick='readMore(${index},"${type}")'>ادامه مطلب</button>
-    <button onclick='deleteItem(${index},"${type}")'>حذف</button>
-  </div>`;
+function box(x,i,type){
+    return `
+    <div class="box">
+        <h3>${x.title}</h3>
+        <p>${x.text.substring(0,120)}...</p>
+        ${x.img ? `<img src="${x.img}">` : ""}
+        <button onclick='more(${i},"${type}")'>ادامه مطلب</button>
+        <button onclick='del(${i},"${type}")'>حذف</button>
+    </div>`;
 }
 
-function readMore(i,type){
-  let item = getData()[type][i];
-  alert(item.title + "\n\n" + item.text);
+function more(i,type){
+    let item=getData()[type][i];
+    alert(item.title+"\n\n"+item.text);
+}
+function del(i,type){
+    let d=getData();
+    d[type].splice(i,1);
+    save(d);
+    loadLists();
 }
 
-function deleteItem(i,type){
-  let data = getData();
-  data[type].splice(i,1);
-  saveData(data);
-  showList();
-}
-
-showList();
+loadLists();
 </script>
 
 </body>
