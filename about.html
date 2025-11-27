@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,12 +28,12 @@
             font-weight: bold;
         }
 
-        /* منو */
         .menu-icon {
             font-size: 30px;
             cursor: pointer;
         }
 
+        /* منوی سه خط */
         .sidebar {
             width: 260px;
             height: 100%;
@@ -42,7 +43,7 @@
             right: -270px;
             transition: 0.4s;
             padding: 20px;
-            box-shadow: -3px 0 10px rgba(0,0,0,0.2);
+            box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
         }
 
         .sidebar a {
@@ -60,29 +61,27 @@
             text-align: left;
         }
 
-        /* صفحه */
+        /* محتوا */
         .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 25px auto;
             background: white;
             padding: 25px;
-            width: 90%;
-            max-width: 800px;
-            margin: 30px auto;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            line-height: 1.9;
+            font-size: 17px;
+            color: #333;
         }
 
         h2 {
             color: #005bbb;
-        }
-
-        .creator {
-            margin-top: 25px;
-            background: #eaeaea;
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
+            margin-bottom: 15px;
+            font-size: 24px;
         }
     </style>
+
 </head>
 
 <body>
@@ -90,11 +89,10 @@
     <!-- هدر -->
     <header>
         <div class="site-title">Histuri.com</div>
-
         <div class="menu-icon" onclick="openMenu()">☰</div>
     </header>
 
-    <!-- منوی سه خط -->
+    <!-- منوی سه‌خط -->
     <div class="sidebar" id="sideMenu">
         <div class="close-btn" onclick="closeMenu()">✖</div>
 
@@ -104,39 +102,31 @@
         <a href="about.html">درباره ما</a>
     </div>
 
-    <!-- محتوای صفحه -->
     <div class="container">
-        <h2>درباره Histuri</h2>
+
+        <h2>درباره ما</h2>
 
         <p>
-            Histuri یک پلتفرم آزاد برای ثبت داستان‌ها، مقاله‌های سیاسی، تاریخی،
-            زندگی‌نامه‌ها و هر نوع نوشته جذاب و ارزشمند است.
-        </p>
-
-        <p>
-            هدف ما ارائه محیطی ساده و کاربردی برای انتشار محتواست تا هر شخصی بتواند
-            دیدگاه‌ها، تحلیل‌ها یا دانسته‌های خود درباره تاریخ و جامعه را به اشتراک بگذارد.
+            سایت <b>Histuri</b> با هدف افزایش آگاهی عمومی در زمینه‌های تاریخی و سیاسی ساخته شده است.
+            هدف ما این است که کاربران بتوانند با ساده‌ترین روش‌ها، مقالات، داستان‌ها و اطلاعات مفید
+            در موضوعات مختلف را مطالعه کنند و حتی مطالب خودشان را نیز منتشر کنند.
         </p>
 
         <p>
-            شما در Histuri می‌توانید:
-            <br>• داستان‌های تاریخی و سیاسی بخوانید  
-            <br>• مطلب جدید منتشر کنید  
-            <br>• مقاله‌های آزاد بنویسید  
-            <br>• زندگی‌نامه‌ها را مرور کنید  
+            ما تلاش کردیم محیطی ساده، شاد، قابل فهم و در عین حال کاربردی ایجاد کنیم
+            تا هر کسی بتواند بدون پیچیدگی از آن استفاده کند.
         </p>
 
         <p>
-            امیدواریم بلاگ شما را به دنیای جذاب تاریخ و سیاست نزدیک‌تر کند.
+            این وبسایت با طراحی و مدیریت:
+            <b style="color:#005bbb">piex8</b>
+            ساخته شده است.
         </p>
 
-        <div class="creator">
-            ساخته شده توسط piex8  
-        </div>
-
-        <p style="margin-top: 20px; text-align:center; font-size:13px; color:#777;">
-            © تمام حقوق محفوظ است | Histuri.com
+        <p>
+            امیدواریم از تجربهٔ کار با Histuri لذت ببرید.
         </p>
+
     </div>
 
     <script>
@@ -149,4 +139,5 @@
     </script>
 
 </body>
+
 </html>
