@@ -7,14 +7,17 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- Header -->
   <header class="header">
     <div class="brand">
-      <button id="openDrawer5" class="hamburger" aria-label="menu">☰</button>
+      <button id="openDrawer" class="hamburger" aria-label="menu">☰</button>
       <div class="brand-text">
         <h1 class="site-title">Histuri.com 🌟</h1>
         <div class="muted">درباره ما</div>
       </div>
     </div>
+
     <nav class="top-links">
       <a href="index.html">مقالات</a>
       <a href="stories.html">داستان‌ها</a>
@@ -22,32 +25,58 @@
     </nav>
   </header>
 
-  <div id="backdrop5" class="backdrop"></div>
-  <aside id="drawer5" class="drawer" aria-hidden="true" role="dialog">
+  <!-- Drawer + Backdrop -->
+  <div id="backdrop" class="backdrop"></div>
+  <aside id="drawer" class="drawer" aria-hidden="true" role="dialog">
+
     <div class="drawer-head">
-      <div class="drawer-title">منو</div>
-      <button id="closeDrawer5" class="close-btn" aria-label="close">✕</button>
+      <div class="drawer-title">منوی سایت 🌈</div>
+      <button id="closeDrawer" class="close-btn" aria-label="close">✕</button>
     </div>
+
     <nav class="drawer-nav">
       <a href="index.html" class="drawer-link">🏠 خانه</a>
       <a href="stories.html" class="drawer-link">📚 داستان‌ها</a>
       <a href="add.html" class="drawer-link">🔐 ورود مدیر</a>
+      <a href="about.html" class="drawer-link">ℹ️ درباره</a>
     </nav>
+
+    <div class="drawer-footer muted">
+      ساخته شده توسط <strong>NIGHTNET</strong>
+    </div>
+
   </aside>
 
+  <!-- Main -->
   <main class="container">
     <div class="card">
       <h2>درباره Histuri.com</h2>
-      <p>این وبلاگ فانتزی با هدف انتشار محتوای شخصی طراحی شده است. تنها مدیر می‌تواند مطلب جدید اضافه کند و دیگران صرفاً قادر به مشاهدهٔ مقالات هستند.</p>
-      <p class="muted">طراحی و پیاده‌سازی: شرکت <strong>NIGHTNET</strong></p>
+
+      <p>
+        Histuri یک وبلاگ فانتزی و شخصی است که با هدف اشتراک‌گذاری تجربه‌ها، داستان‌ها و مقالات ساخته شده.
+        محتوای سایت توسط مدیر نوشته می‌شود و کاربران تنها نقش خواننده دارند.
+      </p>
+
+      <p>
+        تلاش ما این بوده که ظاهر سایت مینیمال، مدرن، رنگارنگ و در عین حال ساده باشد.
+        تمام بخش‌های سایت شامل مقالات، داستان‌ها،‌ پنل مدیریت و صفحهٔ مشاهده محتوا
+        با یک طراحی یکپارچه و فانتزی ساخته شده‌اند.
+      </p>
+
+      <p class="muted">
+        طراحی و توسعه توسط شرکت <strong>NIGHTNET</strong> 🌙✨
+      </p>
     </div>
   </main>
 
+  <!-- Footer -->
   <footer class="site-footer">
-    <div>این سایت توسط شرکت <strong>NIGHTNET</strong> ساخته شده</div>
+    <div>این سایت توسط شرکت <strong>NIGHTNET</strong> ساخته شده — © Histuri.com</div>
   </footer>
 
   <script src="script.js"></script>
-  <script>initDrawer();</script>
+  <script>
+    initDrawer();
+  </script>
 </body>
 </html>
