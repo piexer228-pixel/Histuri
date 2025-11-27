@@ -1,100 +1,91 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Histuri.com</title>
+    <title>Histuri | صفحه اصلی</title>
 
     <style>
         body {
             margin: 0;
-            font-family: "Vazir", sans-serif;
-            direction: rtl;
-            background: #ffffff;
+            background: #f4f4f4;
+            font-family: sans-serif;
         }
 
         /* هدر */
         header {
-            width: 100%;
-            background: #0033aa;
+            background: #005bbb;
             color: white;
-            padding: 15px;
+            padding: 18px 25px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            box-shadow: 0 0 10px #0003;
+            align-items: center;
         }
 
-        .logo {
-            font-size: 22px;
+        .site-title {
+            font-size: 23px;
             font-weight: bold;
         }
 
-        /* دکمه سه‌خط */
-        .menu-btn {
+        /* منو */
+        .menu-icon {
             font-size: 30px;
             cursor: pointer;
-            user-select: none;
         }
 
-        /* منوی کناری */
-        #sideMenu {
-            position: fixed;
-            top: 0;
-            right: -260px;
+        .sidebar {
             width: 260px;
             height: 100%;
-            background: #0033aa;
-            color: white;
+            background: white;
+            position: fixed;
+            top: 0;
+            right: -270px;
+            transition: 0.4s;
             padding: 20px;
-            transition: 0.3s;
-            box-shadow: -5px 0 15px #0005;
-            z-index: 1000;
+            box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
         }
 
-        #sideMenu a {
+        .sidebar a {
             display: block;
             padding: 12px;
-            margin-bottom: 10px;
-            background: #0044cc;
-            color: white;
+            color: #005bbb;
+            font-size: 18px;
             text-decoration: none;
-            border-radius: 6px;
-        }
-
-        #sideMenu a:hover {
-            background: #0055dd;
+            border-bottom: 1px solid #ddd;
         }
 
         .close-btn {
-            font-size: 28px;
+            font-size: 26px;
             cursor: pointer;
-            margin-bottom: 20px;
+            text-align: left;
         }
 
         /* محتوای صفحه */
-        .content {
-            padding: 20px;
+        .container {
+            background: white;
+            padding: 25px;
+            width: 90%;
+            max-width: 800px;
+            margin: 30px auto;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
-        .category-box {
-            padding: 20px;
-            background: #f8f8f8;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            box-shadow: 0 0 5px #ddd;
+        h2 {
+            color: #005bbb;
         }
 
-        .category-box a {
-            padding: 10px 20px;
-            background: #0033aa;
+        .sections a {
+            display: block;
+            background: #005bbb;
             color: white;
+            padding: 14px;
+            margin: 12px 0;
             text-decoration: none;
-            border-radius: 6px;
-        }
-
-        .category-box a:hover {
-            background: #0055dd;
+            border-radius: 10px;
+            font-size: 18px;
+            text-align: center;
         }
     </style>
 </head>
@@ -103,39 +94,34 @@
 
     <!-- هدر -->
     <header>
-        <div class="logo">Histuri.com</div>
-        <div class="menu-btn" onclick="openMenu()">☰</div>
+        <div class="site-title">Histuri.com</div>
+
+        <div class="menu-icon" onclick="openMenu()">☰</div>
     </header>
 
-    <!-- منوی کناری -->
-    <div id="sideMenu">
+    <!-- منوی سه خط -->
+    <div class="sidebar" id="sideMenu">
         <div class="close-btn" onclick="closeMenu()">✖</div>
 
         <a href="index.html">صفحه اصلی</a>
-        <a href="politics.html">داستان‌های سیاسی</a>
-        <a href="history.html">داستان‌های تاریخی</a>
-        <a href="free-articles.html">مقالات آزاد</a>
+        <a href="stories.html">داستان‌ها</a>
+        <a href="add.html">افزودن مطلب</a>
         <a href="about.html">درباره ما</a>
-        <a href="contact.html">تماس با ما</a>
     </div>
 
-    <!-- محتوای اصلی -->
-    <div class="content">
+    <!-- محتوای صفحه اصلی -->
+    <div class="container">
         <h2>به Histuri خوش آمدید</h2>
 
-        <div class="category-box">
-            <h3>داستان‌های سیاسی</h3>
-            <a href="politics.html">مشاهده</a>
-        </div>
+        <p>
+            Histuri یک فضای آزاد برای نوشتن و مطالعه مقالات، داستان‌های تاریخی و سیاسی،
+            زندگی‌نامه‌ها و مطالب آزاد است.
+        </p>
 
-        <div class="category-box">
-            <h3>داستان‌های تاریخی</h3>
-            <a href="history.html">مشاهده</a>
-        </div>
-
-        <div class="category-box">
-            <h3>مقالات آزاد</h3>
-            <a href="free-articles.html">مشاهده</a>
+        <div class="sections">
+            <a href="stories.html">📘 مشاهده داستان‌ها</a>
+            <a href="add.html">✍ افزودن مطلب جدید</a>
+            <a href="about.html">ℹ درباره Histuri</a>
         </div>
     </div>
 
@@ -144,9 +130,10 @@
             document.getElementById("sideMenu").style.right = "0";
         }
         function closeMenu() {
-            document.getElementById("sideMenu").style.right = "-260px";
+            document.getElementById("sideMenu").style.right = "-270px";
         }
     </script>
 
 </body>
+
 </html>
