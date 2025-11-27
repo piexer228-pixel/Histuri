@@ -10,18 +10,20 @@ function initDrawer(){
     const backdrop = document.getElementById('backdrop'+(suffix||''));
     const close = document.getElementById('closeDrawer'+(suffix||''));
     if(!drawer || !backdrop) return;
+
     btn.addEventListener('click', ()=> {
       drawer.classList.add('open');
       backdrop.classList.add('show');
       drawer.setAttribute('aria-hidden','false');
-      // focus for accessibility
       drawer.querySelector('a,button,input')?.focus();
     });
+
     backdrop.addEventListener('click', ()=> {
       drawer.classList.remove('open');
       backdrop.classList.remove('show');
       drawer.setAttribute('aria-hidden','true');
     });
+
     if(close) close.addEventListener('click', ()=> {
       drawer.classList.remove('open');
       backdrop.classList.remove('show');
@@ -42,7 +44,6 @@ function stripHtml(s){
   return String(s).replace(/<[^>]*>/g,'');
 }
 
-/* make helpers global */
 window.initDrawer = initDrawer;
 window.escapeHtml = escapeHtml;
 window.stripHtml = stripHtml;
@@ -59,3 +60,80 @@ document.addEventListener('keydown', function(e){
     });
   }
 });
+
+
+/* ============================================================
+   🔥 سیستم حرفه‌ای مدیریت مقالات (ویرایش + حذف)
+   ذخیره‌سازی: LocalStorage
+   کل بخش بدون دست‌زدن به سیستم‌های قبلی اضافه شده
+============================================================ */
+
+/* ---- گرفتن مقالات ---- */
+function getPosts(){
+  return JSON.parse(localStorage.getItem("posts") || "[]");
+}
+
+/* ---- ذخیره مقالات ---- */
+function savePosts(arr){
+  localStorage.setItem("posts", JSON.stringify(arr));
+}
+
+/* ---- حذف مقاله ---- */
+function deletePost(id){
+  if(!confirm("آیا از حذف این مقاله مطمئن هستید؟")) return;
+
+  let posts = getPosts();
+  posts = posts.filter(p => p.id !== id);
+  savePosts(posts);
+
+  alert("مقاله حذف شد ✔");
+  location.reload();
+}
+
+/* ---- انتقال مقاله برای ویرایش ---- */
+function editPost(id){
+  let posts = getPosts();
+  let post = posts.find(p => p.id === id);
+  if(!post) return alert("مقاله‌ای یافت نشد!");
+
+  localStorage.setItem("editPostID", id);
+  localStorage.setItem("editPostData", JSON.stringify(post));
+
+  location.href = "edit.html";   // صفحه ویرایش
+}
+
+/* ---- ذخیره تغییرات مقاله ---- */
+function saveEditedPost(){
+  const id = localStorage.getItem("editPostID");
+  if(!id) return alert("خطا: مقاله‌ای برای ویرایش انتخاب نشده");
+
+  let posts = getPosts();
+  let post = posts.find(p => p.id == id);
+
+  if(!post) return alert("مقاله پیدا نشد!");
+
+  // مقدارها از فرم edit.html گرفته می‌شود
+  post.title = document.getElementById("title").value;
+  post.text  = document.getElementById("text").value;
+  post.thumb = document.getElementById("thumb").value;
+
+  savePosts(posts);
+
+  alert("مقاله با موفقیت ویرایش شد ✔");
+  localStorage.removeItem("editPostID");
+  localStorage.removeItem("editPostData");
+
+  location.href = "index.html";
+}
+
+/* ---- نمایش مقاله در فرم ویرایش ---- */
+function loadEditForm(){
+  let data = localStorage.getItem("editPostData");
+  if(!data) return;
+
+  let post = JSON.parse(data);
+
+  document.getElementById("title").value = post.title;
+  document.getElementById("text").value  = post.text;
+  document.getElementById("thumb").value = post.thumb;
+}
