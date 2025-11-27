@@ -1,87 +1,66 @@
-function toggleMenu() {
-    let menu = document.getElementById("menu");
-    if (menu.style.right === "0px") {
-        menu.style.right = "-220px";
-    } else {
-        menu.style.right = "0px";
+/* -----------------------------------
+   کنترل منوی سه‌خط (تمام صفحات)
+------------------------------------ */
+function openMenu() {
+    let menu = document.getElementById("sideMenu");
+    if (menu) menu.style.right = "0";
+}
+
+function closeMenu() {
+    let menu = document.getElementById("sideMenu");
+    if (menu) menu.style.right = "-270px";
+}
+
+/* -----------------------------------
+   ابزارهای ویرایش متن (صفحه add.html)
+------------------------------------ */
+function formatText(type) {
+    let textarea = document.getElementById("editor");
+    if (!textarea) return;
+
+    if (type === "bold") {
+        textarea.value += "<b>متن بولد</b>";
+    }
+
+    else if (type === "italic") {
+        textarea.value += "<i>متن کج</i>";
+    }
+
+    else if (type === "increase") {
+        textarea.value += "<span style='font-size:20px;'>فونت بزرگ</span>";
+    }
+
+    else if (type === "decrease") {
+        textarea.value += "<span style='font-size:12px;'>فونت کوچک</span>";
     }
 }
 
-// ---------------------------
-// ذخیره مقاله
-// ---------------------------
-function saveStory() {
-    let title = document.getElementById("title").value;
-    let cat = document.getElementById("category").value;
-    let content = document.getElementById("content").value;
-    let imgFile = document.getElementById("image").files[0];
+/* -----------------------------------
+   ثبت مقاله (نسخه اولیه و ساده)
+------------------------------------ */
+function savePost() {
+    let title = document.getElementById("title");
+    let category = document.getElementById("category");
+    let text = document.getElementById("editor");
 
-    let reader = new FileReader();
-    reader.onload = function () {
-        let story = {
-            title,
-            cat,
-            content,
-            img: reader.result
-        };
+    if (!title || !category || !text) return;
 
-        let stories = JSON.parse(localStorage.getItem("stories") || "[]");
-        stories.push(story);
-        localStorage.setItem("stories", JSON.stringify(stories));
+    if (title.value.trim() === "" || text.value.trim() === "") {
+        alert("لطفاً عنوان و متن را وارد کنید.");
+        return;
+    }
 
-        alert("مقاله ذخیره شد!");
-        location.href = "stories.html";
-    };
-
-    reader.readAsDataURL(imgFile);
+    // در آینده ذخیره واقعی اضافه می‌کنیم
+    alert("مطلب با موفقیت ذخیره شد! (نسخه اولیه)");
 }
 
-// ---------------------------
-// نمایش لیست داستان‌ها
-// ---------------------------
-if (location.pathname.includes("stories.html")) {
-    let stories = JSON.parse(localStorage.getItem("stories") || "[]");
-    let target = document.getElementById("story-list");
+/* -----------------------------------
+   جلوگیری از خطا در صفحات بدون منو
+------------------------------------ */
+document.addEventListener("DOMContentLoaded", function () {
+    let m1 = document.querySelector(".menu-icon");
+    let m2 = document.querySelector(".close-btn");
 
-    stories.forEach((s, i) => {
-        target.innerHTML += `
-            <div class="story-box">
-                <h3>${s.title}</h3>
-                <button onclick="openStory(${i})">نمایش</button>
-            </div>
-        `;
-    });
-}
-
-// ---------------------------
-// باز شدن ادامه مطلب
-// ---------------------------
-function openStory(id) {
-    localStorage.setItem("openStory", id);
-    location.href = "story.html";
-}
-
-// ---------------------------
-// نمایش متن در صفحه story.html
-// ---------------------------
-if (location.pathname.includes("story.html")) {
-    let id = localStorage.getItem("openStory");
-    let s = JSON.parse(localStorage.getItem("stories"))[id];
-
-    document.getElementById("story-img").src = s.img;
-    document.getElementById("story-title").innerHTML = s.title;
-    document.getElementById("story-text").innerHTML = s.content;
-}
-
-// -----------------
-// EDITOR BUTTONS
-// -----------------
-function makeBold() {
-    document.getElementById("content").value += " <b>متن بولد</b> ";
-}
-function makeItalic() {
-    document.getElementById("content").value += " <i>متن کج</i> ";
-}
-function makeBig() {
-    document.getElementById("content").value += " <span style='font-size:22px'>متن بزرگ</span> ";
-}
+    if (m1) m1.addEventListener("click", openMenu);
+    if (m2) m2.addEventListener("click", closeMenu);
+});
