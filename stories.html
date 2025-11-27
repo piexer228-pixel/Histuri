@@ -52,25 +52,43 @@
   <script>
     (function(){
       initDrawer();
+
       const grid = document.getElementById('storiesGrid');
       const raw = localStorage.getItem('histuri_articles');
       const arr = raw ? JSON.parse(raw) : [];
-      const filtered = arr.filter(a => (a.category || '').toLowerCase().includes('داستان') );
+
+      const filtered = arr.filter(a => (a.category || '').toLowerCase().includes('داستان'));
+
       if(!filtered.length){
         grid.innerHTML = '<div class="card">هیچ داستانی یافت نشد.</div>';
-      } else {
-        filtered.slice().reverse().forEach((a)=>{
-          const el = document.createElement('article');
-          el.className = 'article-card';
-          el.innerHTML = `
-            ${a.thumbnail ? `<img class="article-thumb" src="${a.thumbnail}" alt="${escapeHtml(a.title)}">` : ''}
-            <h3>${escapeHtml(a.title)}</h3>
-            <div class="muted small">دسته: ${escapeHtml(a.category)}</div>
-            <p class="excerpt">${a.excerpt || stripHtml(a.content||'').slice(0,160) + '...'}</p>
-          `;
-          grid.appendChild(el);
-        });
+        return;
       }
+
+      filtered.slice().reverse().forEach((a, i)=>{
+        const idx = arr.length - 1 - i;
+
+        const el = document.createElement('article');
+        el.className = 'article-card';
+
+        el.innerHTML = `
+          ${a.thumbnail ? `<img class="article-thumb" src="${a.thumbnail}" alt="${escapeHtml(a.title)}">` : ''}
+          <h3>${escapeHtml(a.title)}</h3>
+          <div class="muted small">دسته: ${escapeHtml(a.category)}</div>
+          <p class="excerpt">${a.excerpt || stripHtml(a.content||'').slice(0,160) + '...'}</p>
+
+          <div class="article-actions">
+            <a class="btn ghost small" href="story.html?id=${idx}">مشاهده</a>
+
+            <!-- دکمه ویرایش -->
+            <button class="btn small" onclick="editPost(${a.id || idx})">✏️ ویرایش</button>
+
+            <!-- دکمه حذف -->
+            <button class="btn small danger" onclick="deletePost(${a.id || idx})">🗑 حذف</button>
+          </div>
+        `;
+
+        grid.appendChild(el);
+      });
     })();
   </script>
 </body>
