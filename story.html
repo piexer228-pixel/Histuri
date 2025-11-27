@@ -2,27 +2,90 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>ادامه مطلب</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داستان | Histuri</title>
+
+    <style>
+        body {
+            margin: 0;
+            background-color: #f4f4f4;
+            font-family: sans-serif;
+        }
+
+        /* هدر */
+        .header {
+            background-color: #003a8c;
+            color: white;
+            padding: 18px 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        /* محتوای داستان */
+        .container {
+            background: white;
+            margin: 25px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* عکس کوچک */
+        .story-img {
+            float: left;
+            width: 110px;
+            height: 110px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-left: 15px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 25px;
+            margin-top: 0;
+        }
+
+        .date {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        p {
+            line-height: 1.9;
+            font-size: 17px;
+            text-align: justify;
+        }
+    </style>
 </head>
+
 <body>
 
-<header class="header">
-    <div class="logo">Histuri.com</div>
-    <div class="menu-btn" onclick="toggleMenu()">☰</div>
-</header>
+    <div class="header">داستان</div>
 
-<nav id="menu" class="side-menu">
-    <a href="index.html">صفحه اصلی</a>
-    <a href="stories.html">داستان‌ها</a>
-</nav>
+    <div class="container">
 
-<div class="story-container">
-    <img id="story-img" class="story-thumb">
-    <h2 id="story-title"></h2>
-    <p id="story-text"></p>
-</div>
+        <!-- عکس کنار متن -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Kheops-Pyramid.jpg" class="story-img">
 
-<script src="script.js"></script>
+        <h1>عنوان داستان نمونه</h1>
+        <div class="date">تاریخ انتشار: ۲۰۲۵/۱۰/۲۶</div>
+
+        <p>
+            این یک متن نمونه برای بخش داستان‌ها است. 
+            در این صفحه شما می‌توانید متن کامل هر داستان تاریخی، سیاسی یا مقالات آزاد را نمایش بدهید.
+            عکس کنار متن، کوچک و مناسب است و دیگر کل صفحه را پر نمی‌کند.
+        </p>
+
+        <p>
+            شما می‌توانید متن‌های طولانی نیز قرار بدهید و صفحه همچنان ظاهر تمیز و واضحی خواهد داشت. 
+            هر داستان در همین قالب نمایش داده می‌شود.
+        </p>
+
+    </div>
+
 </body>
 </html>
