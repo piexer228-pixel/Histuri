@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Histuri - مدیریت</title>
+  <title>Histuri.com — مدیریت</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="header">
     <div class="brand">
       <button id="openDrawer2" class="hamburger" aria-label="menu">☰</button>
-      <div>
-        <h1 class="site-title">Histuri.co</h1>
+      <div class="brand-text">
+        <h1 class="site-title">Histuri.com 🔐</h1>
         <div class="muted">پنل مدیریت</div>
       </div>
     </div>
+
     <nav class="top-links">
       <a href="index.html">مقالات</a>
       <a href="stories.html">داستان‌ها</a>
@@ -25,15 +26,15 @@
   <div id="backdrop2" class="backdrop"></div>
   <aside id="drawer2" class="drawer" aria-hidden="true" role="dialog">
     <div class="drawer-head">
-      <strong>منو</strong>
+      <div class="drawer-title">منوی مدیریت</div>
       <button id="closeDrawer2" class="close-btn" aria-label="close">✕</button>
     </div>
     <nav class="drawer-nav">
-      <a href="index.html" class="drawer-link">خانه</a>
-      <a href="stories.html" class="drawer-link">داستان‌ها</a>
-      <a href="about.html" class="drawer-link">درباره</a>
+      <a href="index.html" class="drawer-link">🏠 خانه</a>
+      <a href="stories.html" class="drawer-link">📚 داستان‌ها</a>
+      <a href="about.html" class="drawer-link">ℹ️ درباره</a>
     </nav>
-    <div class="drawer-footer muted">نسخه ساده — طراحی واکنشگرا</div>
+    <div class="drawer-footer muted">NIGHTNET — مدیریت</div>
   </aside>
 
   <main class="container">
@@ -41,9 +42,9 @@
       <div style="display:flex;justify-content:space-between;align-items:center">
         <div>
           <h2>ورود مدیر</h2>
-          <div class="muted">فقط مدیر می‌تواند مقاله ارسال کند.</div>
+          <div class="muted">تنها مدیر می‌تواند مقاله ایجاد کند.</div>
         </div>
-        <div><a href="index.html" class="btn ghost">بازگشت</a></div>
+        <div><a href="index.html" class="btn ghost small">بازگشت</a></div>
       </div>
 
       <div id="adminArea" style="margin-top:14px"></div>
@@ -56,9 +57,8 @@
 
   <script src="script.js"></script>
   <script>
-    // پنل مدیریت: رمز ساده و فرم ارسال
     (function(){
-      const ADMIN_PASS = 'iamowner123'; // می‌تونی عوضش کنی
+      const ADMIN_PASS = 'iamowner123'; // رمز مدیر — در صورت خواست عوض کن
       const adminArea = document.getElementById('adminArea');
 
       function renderLogin(message){
@@ -83,23 +83,24 @@
 
       function renderEditor(msg){
         adminArea.innerHTML = `
-          <div style="margin-bottom:10px" class="muted">${msg||''}</div>
+          <div class="muted">${msg||''}</div>
           <form id="articleForm">
             <div class="form-row">
               <input id="title" class="input" placeholder="عنوان مقاله" required />
-              <input id="category" class="input" placeholder="دسته بندی" />
-            </div>
-            <div class="form-row">
-              <input id="thumbFile" class="file" type="file" accept="image/*" />
-              <div id="thumbPreview" style="min-width:200px"></div>
+              <input id="category" class="input" placeholder="دسته بندی (مثال: داستان)" />
             </div>
 
-            <div style="margin-bottom:10px">
+            <div class="form-row">
+              <input id="thumbFile" class="file" type="file" accept="image/*" />
+              <div id="thumbPreview" style="min-width:220px"></div>
+            </div>
+
+            <div style="margin-bottom:12px">
               <div class="toolbar">
                 <button type="button" class="tool-btn" data-cmd="bold">B</button>
                 <button type="button" class="tool-btn" data-cmd="italic">I</button>
                 <button type="button" class="tool-btn" data-cmd="underline">U</button>
-                <button type="button" class="tool-btn" data-cmd="insertImage">تصویر</button>
+                <button type="button" class="tool-btn" data-cmd="insertImage">🖼 تصویر</button>
               </div>
               <div id="editor" class="editor" contenteditable data-placeholder="متن مقاله را اینجا بنویسید..."></div>
             </div>
@@ -112,12 +113,12 @@
           <div id="msg" class="muted" style="margin-top:10px"></div>
         `;
 
-        // toolbar
+        // toolbar actions
         document.querySelectorAll('.tool-btn').forEach(b=>{
           b.addEventListener('click', ()=>{
             const cmd = b.getAttribute('data-cmd');
             if(cmd === 'insertImage'){
-              const url = prompt('آدرس تصویر را وارد کنید (یا ابتدا فایل آپلود کنید و URL بگذارید):');
+              const url = prompt('آدرس تصویر را وارد کنید:');
               if(url) document.execCommand('insertImage', false, url);
             } else {
               document.execCommand(cmd, false, null);
@@ -135,7 +136,7 @@
           const r = new FileReader();
           r.onload = ()=> {
             thumbBase64 = r.result;
-            thumbPreview.innerHTML = `<img src="${thumbBase64}" alt="thumb" style="width:120px;height:80px;object-fit:cover;border-radius:8px" />`;
+            thumbPreview.innerHTML = `<img src="${thumbBase64}" alt="thumb" style="width:140px;height:90px;object-fit:cover;border-radius:8px" />`;
           };
           r.readAsDataURL(f);
         });
@@ -178,7 +179,6 @@
         renderLogin('');
       }
 
-      // Drawer init
       initDrawer();
     })();
   </script>
