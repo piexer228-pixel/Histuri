@@ -45,24 +45,57 @@
 
   <script src="script.js"></script>
   <script>
+
+    /* ------------------ تابع حذف مقاله ------------------ */
+    function deleteArticle(id){
+      if(!confirm("آیا مطمئن هستید که می‌خواهید این مقاله را حذف کنید؟")) return;
+      const raw = localStorage.getItem('histuri_articles');
+      const arr = raw ? JSON.parse(raw) : [];
+      arr.splice(id, 1);
+      localStorage.setItem('histuri_articles', JSON.stringify(arr));
+      alert("مقاله حذف شد.");
+      location.href = "index.html";
+    }
+
     (function(){
       initDrawer();
+
       const qs = new URLSearchParams(location.search);
       const id = qs.get('id');
+
       const raw = localStorage.getItem('histuri_articles');
       const arr = raw ? JSON.parse(raw) : [];
       const area = document.getElementById('postArea');
+
       if(!id || !arr[id]){
         area.innerHTML = `<div class="card">مطلب یافت نشد. <a href="index.html" class="btn ghost small">بازگشت</a></div>`;
         return;
       }
+
       const a = arr[id];
+
+      /* اضافه کردن دکمه‌های مدیریت، بدون تغییر کد قبلی */
+      const admin = localStorage.getItem("histuri_admin_ok") === "1";
+      let adminBtns = "";
+
+      if(admin){
+        adminBtns = `
+          <div style="display:flex; gap:10px; margin-top:12px; justify-content:flex-end">
+            <a class="btn small" href="edit.html?id=${id}">✏️ ویرایش</a>
+            <button class="btn small danger" onclick="deleteArticle(${id})">🗑 حذف</button>
+          </div>
+        `;
+      }
+
       area.innerHTML = `
         <article class="card post-card">
           ${a.thumbnail ? `<img src="${a.thumbnail}" class="article-thumb" alt="${escapeHtml(a.title)}">` : ''}
           <h2>${escapeHtml(a.title)}</h2>
           <div class="muted small">دسته: ${escapeHtml(a.category||'عمومی')}</div>
           <div class="content" style="margin-top:12px">${a.content || ''}</div>
+
+          ${adminBtns}
+
           <div style="display:flex;justify-content:flex-end;margin-top:12px">
             <a class="btn ghost small" href="index.html">بازگشت</a>
           </div>
