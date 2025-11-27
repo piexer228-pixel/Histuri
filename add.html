@@ -1,211 +1,179 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>افزودن داستان | Histuri</title>
+    <title>افزودن مطلب | Histuri</title>
 
     <style>
         body {
-            font-family: sans-serif;
-            background: #f4f4f4;
             margin: 0;
+            background: #f4f4f4;
+            font-family: sans-serif;
         }
 
-        .header {
-            background: #003a8c;
+        /* هدر */
+        header {
+            background: #005bbb;
             color: white;
-            padding: 18px 20px;
-            font-size: 22px;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-title {
+            font-size: 23px;
             font-weight: bold;
         }
 
+        .menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* منو */
+        .sidebar {
+            width: 260px;
+            height: 100%;
+            background: white;
+            position: fixed;
+            top: 0;
+            right: -270px;
+            transition: 0.4s;
+            padding: 20px;
+            box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 12px;
+            color: #005bbb;
+            font-size: 18px;
+            text-decoration: none;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .close-btn {
+            font-size: 26px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        /* فرم */
         .container {
             background: white;
             width: 90%;
-            max-width: 800px;
-            margin: 25px auto;
-            padding: 20px;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
-        label {
-            font-weight: bold;
-            display: block;
-            margin: 12px 0 6px;
+        h2 {
+            color: #005bbb;
         }
 
-        input, select {
+        input, select, textarea {
             width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #aaa;
+            padding: 12px;
             font-size: 16px;
+            margin: 12px 0;
+            border: 1px solid #ccc;
+            border-radius: 10px;
         }
 
-        /* ادیتور */
-        #editor {
+        textarea {
+            height: 200px;
+        }
+
+        button {
             width: 100%;
-            min-height: 220px;
-            border: 1px solid #aaa;
-            border-radius: 8px;
-            padding: 10px;
-            background: #ffffff;
+            background: #005bbb;
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 15px;
         }
 
-        /* دکمه‌های ابزار ادیتور */
-        .toolbar button {
-            padding: 7px 12px;
-            margin: 4px;
-            border: none;
-            background: #007bff;
-            color: white;
-            border-radius: 6px;
-            cursor: pointer;
+        .tools button {
+            width: auto;
+            padding: 8px 15px;
+            margin: 5px;
+            background: #444;
             font-size: 14px;
         }
-
-        .toolbar button:hover {
-            background: #005fcc;
-        }
-
-        .submit-btn {
-            margin-top: 20px;
-            background: #28a745;
-            padding: 12px 20px;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 17px;
-            cursor: pointer;
-        }
     </style>
-
-    <script>
-        function command(cmd, value = null) {
-            document.execCommand(cmd, false, value);
-        }
-    </script>
 
 </head>
 
 <body>
 
-    <div class="header">افزودن داستان جدید</div>
+    <!-- هدر -->
+    <header>
+        <div class="site-title">Histuri.com</div>
+        <div class="menu-icon" onclick="openMenu()">☰</div>
+    </header>
 
+    <!-- منوی سه خط -->
+    <div class="sidebar" id="sideMenu">
+        <div class="close-btn" onclick="closeMenu()">✖</div>
+
+        <a href="index.html">صفحه اصلی</a>
+        <a href="stories.html">داستان‌ها</a>
+        <a href="add.html">افزودن مطلب</a>
+        <a href="about.html">درباره ما</a>
+    </div>
+
+    <!-- محتوا -->
     <div class="container">
 
-        <label>نوع بخش</label>
+        <h2>افزودن مطلب جدید</h2>
+
+        <label>عنوان مقاله</label>
+        <input type="text" placeholder="عنوان را وارد کنید">
+
+        <label>دسته‌بندی</label>
         <select>
-            <option>داستان‌های تاریخی</option>
-            <option>داستان‌های سیاسی</option>
-            <option>مقالات آزاد</option>
-            <option>زندگی‌نامه‌ها</option>
-            <option>اسطوره‌ها</option>
-            <option>بخش جدید…</option>
+            <option>تاریخی</option>
+            <option>سیاسی</option>
+            <option>مقاله آزاد</option>
         </select>
 
-        <label>عنوان داستان</label>
-        <input type="text" placeholder="مثلاً: ماجرای ساخت اهرام مصر">
+        <label>عکس مقاله</label>
+        <input type="file">
 
-        <label>لینک عکس کوچک</label>
-        <input type="text" placeholder="لینک عکس را قرار دهید">
-
-        <label>متن داستان</label>
-
-        <!-- ابزار ادیتور -->
-        <div class="toolbar">
-            <button onclick="command('bold')">B</button>
-            <button onclick="command('italic')">I</button>
-            <button onclick="command('underline')">U</button>
-            <button onclick="command('insertOrderedList')">1.</button>
-            <button onclick="command('insertUnorderedList')">•</button>
-            <button onclick="command('justifyRight')">راست</button>
-            <button onclick="command('justifyCenter')">وسط</button>
-            <button onclick="command('justifyLeft')">چپ</button>
-            <button onclick="command('foreColor', prompt('کد رنگ را وارد کنید:'))">🎨 رنگ</button>
-            <button onclick="command('fontSize', prompt('اندازه فونت (۱ تا ۷):'))">🔠 اندازه</button>
+        <!-- ابزار متن -->
+        <div class="tools">
+            <button onclick="formatText('bold')">B</button>
+            <button onclick="formatText('italic')"><i>I</i></button>
+            <button onclick="formatText('underline')"><u>U</u></button>
+            <button onclick="formatText('h3')">تیتر</button>
         </div>
 
-        <!-- ادیتور متن -->
-        <div id="editor" contenteditable="true">
-            متن داستان را اینجا بنویسید…
-        </div>
+        <textarea id="textArea" placeholder="متن خود را بنویسید..."></textarea>
 
-        <button class="submit-btn">ثبت داستان</button>
+        <button>ثبت مطلب</button>
+
     </div>
+
+    <script>
+        function openMenu() {
+            document.getElementById("sideMenu").style.right = "0";
+        }
+        function closeMenu() {
+            document.getElementById("sideMenu").style.right = "-270px";
+        }
+
+        function formatText(command) {
+            document.execCommand(command, false, null);
+        }
+    </script>
 
 </body>
-    <!-- منوی سه خط -->
-<style>
-    .topbar {
-        background: #003a8c;
-        color: white;
-        padding: 15px;
-        font-size: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .menu-icon {
-        cursor: pointer;
-        font-size: 28px;
-        user-select: none;
-    }
-
-    /* منوی کشویی */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        right: -260px;
-        width: 260px;
-        height: 100%;
-        background: #003a8c;
-        color: white;
-        padding: 20px;
-        transition: 0.3s;
-        z-index: 1000;
-    }
-
-    .sidebar.open {
-        right: 0;
-    }
-
-    .sidebar a {
-        display: block;
-        padding: 12px 0;
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .sidebar a:hover {
-        color: #ffea00;
-    }
-</style>
-
-<div class="topbar">
-    <div style="font-size: 23px; font-weight: bold;">
-        Histuri.com
-    </div>
-
-    <div class="menu-icon" onclick="toggleMenu()">☰</div>
-</div>
-
-<div id="sideMenu" class="sidebar">
-    <a href="index.html">صفحه اصلی</a>
-    <a href="stories.html">داستان‌ها</a>
-    <a href="add.html">افزودن داستان</a>
-    <a href="about.html">درباره ما</a>
-</div>
-
-<script>
-    function toggleMenu() {
-        document.getElementById("sideMenu").classList.toggle("open");
-    }
-</script>
-
 </html>
