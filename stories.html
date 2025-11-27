@@ -2,25 +2,126 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>داستان‌ها</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داستان‌ها | Histuri</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background-color: #fafafa;
+        }
+
+        /* هدر */
+        .header {
+            background-color: #003a8c;
+            color: white;
+            padding: 18px 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        /* عنوان بخش */
+        .section-title {
+            margin: 28px 20px 12px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #003a8c;
+        }
+
+        /* کارت داستان */
+        .story-card {
+            background: white;
+            margin: 10px 20px;
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .story-card img {
+            width: 70px;
+            height: 70px;
+            border-radius: 6px;
+            margin-left: 12px;
+            object-fit: cover;
+        }
+
+        .story-info h3 {
+            margin: 0;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .story-info a {
+            display: inline-block;
+            margin-top: 5px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+    </style>
 </head>
+
 <body>
 
-<header class="header">
-    <div class="logo">Histuri.com</div>
-    <div class="menu-btn" onclick="toggleMenu()">☰</div>
-</header>
+    <div class="header">بخش‌های مختلف Histuri</div>
 
-<nav id="menu" class="side-menu">
-    <a href="index.html">صفحه اصلی</a>
-    <a href="add.html">افزودن مقاله</a>
-</nav>
+    <!-- 📘 بخش تاریخی -->
+    <div class="section-title">📘 داستان‌های تاریخی</div>
 
-<h2 class="page-title">لیست داستان‌ها</h2>
+    <div class="story-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Kheops-Pyramid.jpg">
+        <div class="story-info">
+            <h3>ساخت اهرام مصر</h3>
+            <a href="story.html">مشاهده</a>
+        </div>
+    </div>
 
-<div id="story-list"></div>
+    <!-- 📕 بخش سیاسی -->
+    <div class="section-title">📕 داستان‌های سیاسی</div>
 
-<script src="script.js"></script>
+    <div class="story-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Mahatma-Gandhi%2C_studio%2C_1931.jpg">
+        <div class="story-info">
+            <h3>زندگی گاندی</h3>
+            <a href="story.html">مشاهده</a>
+        </div>
+    </div>
+
+    <!-- 📰 مقالات آزاد -->
+    <div class="section-title">📰 مقالات آزاد</div>
+
+    <div class="story-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Typewriter.jpg">
+        <div class="story-info">
+            <h3>چرا تاریخ تکرار می‌شود؟</h3>
+            <a href="story.html">مشاهده</a>
+        </div>
+    </div>
+
+    <!-- 👤 زندگی‌نامه‌ها -->
+    <div class="section-title">👤 زندگی‌نامه‌ها</div>
+
+    <div class="story-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Nikola_Tesla%2C_with_his_equipment_Wellcome_M0014782.jpg">
+        <div class="story-info">
+            <h3>نیکولا تسلا؛ نابغه‌ای بی‌زمان</h3>
+            <a href="story.html">مشاهده</a>
+        </div>
+    </div>
+
+    <!-- 🏺 اسطوره‌ها -->
+    <div class="section-title">🏺 اسطوره‌ها</div>
+
+    <div class="story-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Perseus_and_Andromeda_%28Rubens%29.jpg">
+        <div class="story-info">
+            <h3>اسطوره‌های یونان</h3>
+            <a href="story.html">مشاهده</a>
+        </div>
+    </div>
+
 </body>
 </html>
