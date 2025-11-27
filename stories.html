@@ -3,42 +3,42 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Histuri - داستان‌ها</title>
+  <title>Histuri.com — داستان‌ها</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="header">
     <div class="brand">
       <button id="openDrawer4" class="hamburger" aria-label="menu">☰</button>
-      <div>
-        <h1 class="site-title">Histuri.co</h1>
+      <div class="brand-text">
+        <h1 class="site-title">Histuri.com 📚</h1>
         <div class="muted">داستان‌ها</div>
       </div>
     </div>
     <nav class="top-links">
       <a href="index.html">مقالات</a>
       <a href="about.html">درباره</a>
-      <a href="add.html">ورود مدیر</a>
+      <a href="add.html" class="btn small ghost">ورود مدیر</a>
     </nav>
   </header>
 
   <div id="backdrop4" class="backdrop"></div>
   <aside id="drawer4" class="drawer" aria-hidden="true" role="dialog">
     <div class="drawer-head">
-      <strong>منو</strong>
+      <div class="drawer-title">منو</div>
       <button id="closeDrawer4" class="close-btn" aria-label="close">✕</button>
     </div>
     <nav class="drawer-nav">
-      <a href="index.html" class="drawer-link">خانه</a>
-      <a href="add.html" class="drawer-link">ورود مدیر</a>
-      <a href="about.html" class="drawer-link">درباره</a>
+      <a href="index.html" class="drawer-link">🏠 خانه</a>
+      <a href="add.html" class="drawer-link">🔐 ورود مدیر</a>
+      <a href="about.html" class="drawer-link">ℹ️ درباره</a>
     </nav>
   </aside>
 
   <main class="container">
     <section class="card">
       <h2>داستان‌ها</h2>
-      <p class="muted">فهرست داستان‌ها (از میان مقالات فیلتر شده)</p>
+      <p class="muted">داستان‌ها از میان مقالاتی که دسته‌شان 'داستان' است فهرست می‌شوند.</p>
     </section>
 
     <section id="storiesGrid" class="article-grid"></section>
@@ -55,19 +55,18 @@
       const grid = document.getElementById('storiesGrid');
       const raw = localStorage.getItem('histuri_articles');
       const arr = raw ? JSON.parse(raw) : [];
-      // برای نمونه: فرض کنیم دسته 'داستان' را به عنوان داستان‌ها نشان دهیم
       const filtered = arr.filter(a => (a.category || '').toLowerCase().includes('داستان') );
       if(!filtered.length){
         grid.innerHTML = '<div class="card">هیچ داستانی یافت نشد.</div>';
       } else {
-        filtered.slice().reverse().forEach((a, i)=>{
+        filtered.slice().reverse().forEach((a)=>{
           const el = document.createElement('article');
           el.className = 'article-card';
           el.innerHTML = `
             ${a.thumbnail ? `<img class="article-thumb" src="${a.thumbnail}" alt="${escapeHtml(a.title)}">` : ''}
             <h3>${escapeHtml(a.title)}</h3>
-            <div class="muted small">دسته: ${escapeHtml(a.category || 'عمومی')}</div>
-            <div class="excerpt">${a.excerpt || stripHtml(a.content||'').slice(0,180)+'...'}</div>
+            <div class="muted small">دسته: ${escapeHtml(a.category)}</div>
+            <p class="excerpt">${a.excerpt || stripHtml(a.content||'').slice(0,160) + '...'}</p>
           `;
           grid.appendChild(el);
         });
