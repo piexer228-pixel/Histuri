@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>افزودن مقاله</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">Histuri.com</div>
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+</header>
+
+<nav id="menu" class="side-menu">
+    <a href="index.html">صفحه اصلی</a>
+</nav>
+
+<h2 class="page-title">افزودن مقاله جدید</h2>
+
+<div class="add-box">
+    <input id="title" type="text" placeholder="عنوان مقاله">
+
+    <select id="category">
+        <option value="history">داستان تاریخی</option>
+        <option value="politics">داستان سیاسی</option>
+        <option value="iran">ایران باستان</option>
+        <option value="world">جهان باستان</option>
+    </select>
+
+    <textarea id="content" placeholder="متن مقاله..."></textarea>
+
+    <div class="editor-buttons">
+        <button onclick="makeBold()">B</button>
+        <button onclick="makeItalic()">I</button>
+        <button onclick="makeBig()">A+</button>
+    </div>
+
+    <input type="file" id="image">
+
+    <button onclick="saveStory()">ذخیره مقاله</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
