@@ -1,57 +1,103 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>داستان | Histuri</title>
+    <title>نمایش مطلب | Histuri</title>
 
     <style>
         body {
             margin: 0;
-            background-color: #f4f4f4;
+            background: #f4f4f4;
             font-family: sans-serif;
         }
 
         /* هدر */
-        .header {
-            background-color: #003a8c;
+        header {
+            background: #005bbb;
             color: white;
-            padding: 18px 20px;
-            font-size: 22px;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-title {
+            font-size: 23px;
             font-weight: bold;
         }
 
-        /* محتوای داستان */
+        .menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* منوی سه خط */
+        .sidebar {
+            width: 260px;
+            height: 100%;
+            background: white;
+            position: fixed;
+            top: 0;
+            right: -270px;
+            transition: 0.4s;
+            padding: 20px;
+            box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 12px;
+            color: #005bbb;
+            font-size: 18px;
+            text-decoration: none;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .close-btn {
+            font-size: 26px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        /* محتوا */
         .container {
             background: white;
-            margin: 25px auto;
-            padding: 20px;
             width: 90%;
-            max-width: 800px;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
 
-        /* عکس کوچک */
-        .story-img {
+        .title {
+            color: #005bbb;
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        .meta {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .img-box {
             float: left;
-            width: 110px;
-            height: 110px;
-            border-radius: 8px;
-            object-fit: cover;
+            width: 120px;
+            height: 120px;
             margin-left: 15px;
             margin-bottom: 10px;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
-        h1 {
-            font-size: 25px;
-            margin-top: 0;
-        }
-
-        .date {
-            font-size: 14px;
-            color: #777;
-            margin-bottom: 20px;
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         p {
@@ -59,104 +105,70 @@
             font-size: 17px;
             text-align: justify;
         }
+
+        /* بعد از شناور */
+        .clear {
+            clear: both;
+        }
     </style>
+
 </head>
 
 <body>
 
-    <div class="header">داستان</div>
+    <!-- هدر -->
+    <header>
+        <div class="site-title">Histuri.com</div>
+        <div class="menu-icon" onclick="openMenu()">☰</div>
+    </header>
 
+    <!-- منوی سه خط -->
+    <div class="sidebar" id="sideMenu">
+        <div class="close-btn" onclick="closeMenu()">✖</div>
+
+        <a href="index.html">صفحه اصلی</a>
+        <a href="stories.html">داستان‌ها</a>
+        <a href="add.html">افزودن مطلب</a>
+        <a href="about.html">درباره ما</a>
+    </div>
+
+    <!-- محتوا -->
     <div class="container">
 
-        <!-- عکس کنار متن -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Kheops-Pyramid.jpg" class="story-img">
+        <div class="title">عنوان مطلب (مثال)</div>
 
-        <h1>عنوان داستان نمونه</h1>
-        <div class="date">تاریخ انتشار: ۲۰۲۵/۱۰/۲۶</div>
+        <div class="meta">
+            دسته‌بندی: تاریخی | نویسنده: نام مثال | تاریخ: 1403/09/06
+        </div>
+
+        <div class="img-box">
+            <img src="https://via.placeholder.com/120" alt="image">
+        </div>
 
         <p>
-            این یک متن نمونه برای بخش داستان‌ها است. 
-            در این صفحه شما می‌توانید متن کامل هر داستان تاریخی، سیاسی یا مقالات آزاد را نمایش بدهید.
-            عکس کنار متن، کوچک و مناسب است و دیگر کل صفحه را پر نمی‌کند.
+            این متن نمونه است. این بخش محتوای کامل داستان یا مقاله‌ای است که کاربر از صفحه
+            داستان‌ها روی آن کلیک کرده است.  
+            عکس در سمت چپ قرار گرفته و بسیار کوچک شده تا متن صفحه را به‌هم نریزد.
         </p>
 
         <p>
-            شما می‌توانید متن‌های طولانی نیز قرار بدهید و صفحه همچنان ظاهر تمیز و واضحی خواهد داشت. 
-            هر داستان در همین قالب نمایش داده می‌شود.
+            این بخش می‌تواند شامل پاراگراف‌های طولانی، تحلیل‌ها و توضیحات کامل باشد.
+            کل صفحه سفید است و هیچ صفحه سیاهی باز نمی‌شود.
         </p>
+
+        <div class="clear"></div>
 
     </div>
+
+    <script>
+        function openMenu() {
+            document.getElementById("sideMenu").style.right = "0";
+        }
+        function closeMenu() {
+            document.getElementById("sideMenu").style.right = "-270px";
+        }
+    </script>
 
 </body>
-    <!-- منوی سه خط -->
-<style>
-    .topbar {
-        background: #003a8c;
-        color: white;
-        padding: 15px;
-        font-size: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .menu-icon {
-        cursor: pointer;
-        font-size: 28px;
-        user-select: none;
-    }
-
-    /* منوی کشویی */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        right: -260px;
-        width: 260px;
-        height: 100%;
-        background: #003a8c;
-        color: white;
-        padding: 20px;
-        transition: 0.3s;
-        z-index: 1000;
-    }
-
-    .sidebar.open {
-        right: 0;
-    }
-
-    .sidebar a {
-        display: block;
-        padding: 12px 0;
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .sidebar a:hover {
-        color: #ffea00;
-    }
-</style>
-
-<div class="topbar">
-    <div style="font-size: 23px; font-weight: bold;">
-        Histuri.com
-    </div>
-
-    <div class="menu-icon" onclick="toggleMenu()">☰</div>
-</div>
-
-<div id="sideMenu" class="sidebar">
-    <a href="index.html">صفحه اصلی</a>
-    <a href="stories.html">داستان‌ها</a>
-    <a href="add.html">افزودن داستان</a>
-    <a href="about.html">درباره ما</a>
-</div>
-
-<script>
-    function toggleMenu() {
-        document.getElementById("sideMenu").classList.toggle("open");
-    }
-</script>
 
 </html>
