@@ -1,179 +1,186 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fa" dir="rtl">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>افزودن مطلب | Histuri</title>
-
-    <style>
-        body {
-            margin: 0;
-            background: #f4f4f4;
-            font-family: sans-serif;
-        }
-
-        /* هدر */
-        header {
-            background: #005bbb;
-            color: white;
-            padding: 18px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .site-title {
-            font-size: 23px;
-            font-weight: bold;
-        }
-
-        .menu-icon {
-            font-size: 30px;
-            cursor: pointer;
-        }
-
-        /* منو */
-        .sidebar {
-            width: 260px;
-            height: 100%;
-            background: white;
-            position: fixed;
-            top: 0;
-            right: -270px;
-            transition: 0.4s;
-            padding: 20px;
-            box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .sidebar a {
-            display: block;
-            padding: 12px;
-            color: #005bbb;
-            font-size: 18px;
-            text-decoration: none;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .close-btn {
-            font-size: 26px;
-            cursor: pointer;
-            text-align: left;
-        }
-
-        /* فرم */
-        .container {
-            background: white;
-            width: 90%;
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        h2 {
-            color: #005bbb;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            margin: 12px 0;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-        }
-
-        textarea {
-            height: 200px;
-        }
-
-        button {
-            width: 100%;
-            background: #005bbb;
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-
-        .tools button {
-            width: auto;
-            padding: 8px 15px;
-            margin: 5px;
-            background: #444;
-            font-size: 14px;
-        }
-    </style>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Histuri - مدیریت</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-
-    <!-- هدر -->
-    <header>
-        <div class="site-title">Histuri.com</div>
-        <div class="menu-icon" onclick="openMenu()">☰</div>
-    </header>
-
-    <!-- منوی سه خط -->
-    <div class="sidebar" id="sideMenu">
-        <div class="close-btn" onclick="closeMenu()">✖</div>
-
-        <a href="index.html">صفحه اصلی</a>
-        <a href="stories.html">داستان‌ها</a>
-        <a href="add.html">افزودن مطلب</a>
-        <a href="about.html">درباره ما</a>
+  <header class="header">
+    <div class="brand">
+      <button id="openDrawer2" class="hamburger" aria-label="menu">☰</button>
+      <div>
+        <h1 class="site-title">Histuri.co</h1>
+        <div class="muted">پنل مدیریت</div>
+      </div>
     </div>
+    <nav class="top-links">
+      <a href="index.html">مقالات</a>
+      <a href="stories.html">داستان‌ها</a>
+      <a href="about.html">درباره</a>
+    </nav>
+  </header>
 
-    <!-- محتوا -->
-    <div class="container">
+  <div id="backdrop2" class="backdrop"></div>
+  <aside id="drawer2" class="drawer" aria-hidden="true" role="dialog">
+    <div class="drawer-head">
+      <strong>منو</strong>
+      <button id="closeDrawer2" class="close-btn" aria-label="close">✕</button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="index.html" class="drawer-link">خانه</a>
+      <a href="stories.html" class="drawer-link">داستان‌ها</a>
+      <a href="about.html" class="drawer-link">درباره</a>
+    </nav>
+    <div class="drawer-footer muted">نسخه ساده — طراحی واکنشگرا</div>
+  </aside>
 
-        <h2>افزودن مطلب جدید</h2>
-
-        <label>عنوان مقاله</label>
-        <input type="text" placeholder="عنوان را وارد کنید">
-
-        <label>دسته‌بندی</label>
-        <select>
-            <option>تاریخی</option>
-            <option>سیاسی</option>
-            <option>مقاله آزاد</option>
-        </select>
-
-        <label>عکس مقاله</label>
-        <input type="file">
-
-        <!-- ابزار متن -->
-        <div class="tools">
-            <button onclick="formatText('bold')">B</button>
-            <button onclick="formatText('italic')"><i>I</i></button>
-            <button onclick="formatText('underline')"><u>U</u></button>
-            <button onclick="formatText('h3')">تیتر</button>
+  <main class="container">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <h2>ورود مدیر</h2>
+          <div class="muted">فقط مدیر می‌تواند مقاله ارسال کند.</div>
         </div>
+        <div><a href="index.html" class="btn ghost">بازگشت</a></div>
+      </div>
 
-        <textarea id="textArea" placeholder="متن خود را بنویسید..."></textarea>
-
-        <button>ثبت مطلب</button>
-
+      <div id="adminArea" style="margin-top:14px"></div>
     </div>
+  </main>
 
-    <script>
-        function openMenu() {
-            document.getElementById("sideMenu").style.right = "0";
-        }
-        function closeMenu() {
-            document.getElementById("sideMenu").style.right = "-270px";
-        }
+  <footer class="site-footer">
+    <div>این سایت توسط شرکت <strong>NIGHTNET</strong> ساخته شده</div>
+  </footer>
 
-        function formatText(command) {
-            document.execCommand(command, false, null);
-        }
-    </script>
+  <script src="script.js"></script>
+  <script>
+    // پنل مدیریت: رمز ساده و فرم ارسال
+    (function(){
+      const ADMIN_PASS = 'iamowner123'; // می‌تونی عوضش کنی
+      const adminArea = document.getElementById('adminArea');
 
+      function renderLogin(message){
+        adminArea.innerHTML = `
+          <form id="loginForm" class="form-row">
+            <input id="pw" class="input" placeholder="رمز مدیر" />
+            <button class="btn" type="submit">ورود</button>
+          </form>
+          <div id="loginMsg" class="muted" style="margin-top:10px">${message||''}</div>
+        `;
+        document.getElementById('loginForm').addEventListener('submit', e=>{
+          e.preventDefault();
+          const p = document.getElementById('pw').value;
+          if(p === ADMIN_PASS){
+            localStorage.setItem('histuri_admin_ok','1');
+            renderEditor('');
+          } else {
+            renderLogin('رمز اشتباه است');
+          }
+        });
+      }
+
+      function renderEditor(msg){
+        adminArea.innerHTML = `
+          <div style="margin-bottom:10px" class="muted">${msg||''}</div>
+          <form id="articleForm">
+            <div class="form-row">
+              <input id="title" class="input" placeholder="عنوان مقاله" required />
+              <input id="category" class="input" placeholder="دسته بندی" />
+            </div>
+            <div class="form-row">
+              <input id="thumbFile" class="file" type="file" accept="image/*" />
+              <div id="thumbPreview" style="min-width:200px"></div>
+            </div>
+
+            <div style="margin-bottom:10px">
+              <div class="toolbar">
+                <button type="button" class="tool-btn" data-cmd="bold">B</button>
+                <button type="button" class="tool-btn" data-cmd="italic">I</button>
+                <button type="button" class="tool-btn" data-cmd="underline">U</button>
+                <button type="button" class="tool-btn" data-cmd="insertImage">تصویر</button>
+              </div>
+              <div id="editor" class="editor" contenteditable data-placeholder="متن مقاله را اینجا بنویسید..."></div>
+            </div>
+
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+              <button class="btn" type="submit">ثبت مقاله</button>
+              <button class="btn ghost" id="logoutBtn" type="button">خروج</button>
+            </div>
+          </form>
+          <div id="msg" class="muted" style="margin-top:10px"></div>
+        `;
+
+        // toolbar
+        document.querySelectorAll('.tool-btn').forEach(b=>{
+          b.addEventListener('click', ()=>{
+            const cmd = b.getAttribute('data-cmd');
+            if(cmd === 'insertImage'){
+              const url = prompt('آدرس تصویر را وارد کنید (یا ابتدا فایل آپلود کنید و URL بگذارید):');
+              if(url) document.execCommand('insertImage', false, url);
+            } else {
+              document.execCommand(cmd, false, null);
+            }
+          });
+        });
+
+        // thumb file
+        const thumbFile = document.getElementById('thumbFile');
+        const thumbPreview = document.getElementById('thumbPreview');
+        let thumbBase64 = '';
+        thumbFile.addEventListener('change', e=>{
+          const f = e.target.files[0];
+          if(!f) return;
+          const r = new FileReader();
+          r.onload = ()=> {
+            thumbBase64 = r.result;
+            thumbPreview.innerHTML = `<img src="${thumbBase64}" alt="thumb" style="width:120px;height:80px;object-fit:cover;border-radius:8px" />`;
+          };
+          r.readAsDataURL(f);
+        });
+
+        // submit
+        document.getElementById('articleForm').addEventListener('submit', e=>{
+          e.preventDefault();
+          const title = document.getElementById('title').value.trim();
+          const category = document.getElementById('category').value.trim();
+          const content = document.getElementById('editor').innerHTML.trim();
+          if(!title){ document.getElementById('msg').textContent = 'عنوان لازم است'; return; }
+          const raw = localStorage.getItem('histuri_articles');
+          const arr = raw ? JSON.parse(raw) : [];
+          arr.push({
+            title, category, thumbnail: thumbBase64, content,
+            excerpt: content ? stripHtml(content).slice(0,220) + '...' : ''
+          });
+          localStorage.setItem('histuri_articles', JSON.stringify(arr));
+          // پاک کردن فرم
+          document.getElementById('title').value = '';
+          document.getElementById('category').value = '';
+          document.getElementById('thumbFile').value = '';
+          thumbPreview.innerHTML = '';
+          document.getElementById('editor').innerHTML = '';
+          thumbBase64 = '';
+          document.getElementById('msg').textContent = 'مقاله ذخیره شد.';
+        });
+
+        // logout
+        document.getElementById('logoutBtn').addEventListener('click', ()=>{
+          localStorage.removeItem('histuri_admin_ok');
+          renderLogin('خارج شدید');
+        });
+      }
+
+      // initial
+      if(localStorage.getItem('histuri_admin_ok') === '1'){
+        renderEditor('');
+      } else {
+        renderLogin('');
+      }
+
+      // Drawer init
+      initDrawer();
+    })();
+  </script>
 </body>
 </html>
