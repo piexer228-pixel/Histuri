@@ -1,142 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fa" dir="rtl">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>داستان‌ها | Histuri</title>
-
-    <style>
-        body {
-            margin: 0;
-            background: #f4f4f4;
-            font-family: sans-serif;
-        }
-
-        /* هدر */
-        header {
-            background: #005bbb;
-            color: white;
-            padding: 18px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .site-title {
-            font-size: 23px;
-            font-weight: bold;
-        }
-
-        .menu-icon {
-            font-size: 30px;
-            cursor: pointer;
-        }
-
-        /* منو */
-        .sidebar {
-            width: 260px;
-            height: 100%;
-            background: white;
-            position: fixed;
-            top: 0;
-            right: -270px;
-            transition: 0.4s;
-            padding: 20px;
-            box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .sidebar a {
-            display: block;
-            padding: 12px;
-            color: #005bbb;
-            font-size: 18px;
-            text-decoration: none;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .close-btn {
-            font-size: 26px;
-            cursor: pointer;
-            text-align: left;
-        }
-
-        /* محتوا */
-        .container {
-            background: white;
-            width: 90%;
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        h2 {
-            color: #005bbb;
-        }
-
-        .story-box {
-            background: #e9f2ff;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
-            cursor: pointer;
-            border: 1px solid #c7dcff;
-            transition: 0.2s;
-        }
-
-        .story-box:hover {
-            background: #d7e9ff;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Histuri - داستان‌ها</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-
-    <!-- هدر -->
-    <header>
-        <div class="site-title">Histuri.com</div>
-        <div class="menu-icon" onclick="openMenu()">☰</div>
-    </header>
-
-    <!-- منوی سه خط -->
-    <div class="sidebar" id="sideMenu">
-        <div class="close-btn" onclick="closeMenu()">✖</div>
-
-        <a href="index.html">صفحه اصلی</a>
-        <a href="stories.html">داستان‌ها</a>
-        <a href="add.html">افزودن مطلب</a>
-        <a href="about.html">درباره ما</a>
+  <header class="header">
+    <div class="brand">
+      <button id="openDrawer4" class="hamburger" aria-label="menu">☰</button>
+      <div>
+        <h1 class="site-title">Histuri.co</h1>
+        <div class="muted">داستان‌ها</div>
+      </div>
     </div>
+    <nav class="top-links">
+      <a href="index.html">مقالات</a>
+      <a href="about.html">درباره</a>
+      <a href="add.html">ورود مدیر</a>
+    </nav>
+  </header>
 
-    <!-- محتوای اصلی صفحه داستان‌ها -->
-    <div class="container">
-        <h2>داستان‌ها</h2>
-
-        <p>در این بخش می‌توانید داستان‌ها و مطالب منتشرشده را مشاهده کنید.</p>
-
-        <!-- لیست نمونه (بعداً پویا می‌کنیم اگر خواستی) -->
-        <div class="story-box" onclick="location.href='story.html'">
-            داستان شماره ۱ — (مثال)
-        </div>
-
-        <div class="story-box" onclick="location.href='story.html'">
-            داستان شماره ۲ — (مثال)
-        </div>
-
+  <div id="backdrop4" class="backdrop"></div>
+  <aside id="drawer4" class="drawer" aria-hidden="true" role="dialog">
+    <div class="drawer-head">
+      <strong>منو</strong>
+      <button id="closeDrawer4" class="close-btn" aria-label="close">✕</button>
     </div>
+    <nav class="drawer-nav">
+      <a href="index.html" class="drawer-link">خانه</a>
+      <a href="add.html" class="drawer-link">ورود مدیر</a>
+      <a href="about.html" class="drawer-link">درباره</a>
+    </nav>
+  </aside>
 
-    <script>
-        function openMenu() {
-            document.getElementById("sideMenu").style.right = "0";
-        }
+  <main class="container">
+    <section class="card">
+      <h2>داستان‌ها</h2>
+      <p class="muted">فهرست داستان‌ها (از میان مقالات فیلتر شده)</p>
+    </section>
 
-        function closeMenu() {
-            document.getElementById("sideMenu").style.right = "-270px";
-        }
-    </script>
+    <section id="storiesGrid" class="article-grid"></section>
+  </main>
 
+  <footer class="site-footer">
+    <div>این سایت توسط شرکت <strong>NIGHTNET</strong> ساخته شده</div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    (function(){
+      initDrawer();
+      const grid = document.getElementById('storiesGrid');
+      const raw = localStorage.getItem('histuri_articles');
+      const arr = raw ? JSON.parse(raw) : [];
+      // برای نمونه: فرض کنیم دسته 'داستان' را به عنوان داستان‌ها نشان دهیم
+      const filtered = arr.filter(a => (a.category || '').toLowerCase().includes('داستان') );
+      if(!filtered.length){
+        grid.innerHTML = '<div class="card">هیچ داستانی یافت نشد.</div>';
+      } else {
+        filtered.slice().reverse().forEach((a, i)=>{
+          const el = document.createElement('article');
+          el.className = 'article-card';
+          el.innerHTML = `
+            ${a.thumbnail ? `<img class="article-thumb" src="${a.thumbnail}" alt="${escapeHtml(a.title)}">` : ''}
+            <h3>${escapeHtml(a.title)}</h3>
+            <div class="muted small">دسته: ${escapeHtml(a.category || 'عمومی')}</div>
+            <div class="excerpt">${a.excerpt || stripHtml(a.content||'').slice(0,180)+'...'}</div>
+          `;
+          grid.appendChild(el);
+        });
+      }
+    })();
+  </script>
 </body>
-
 </html>
